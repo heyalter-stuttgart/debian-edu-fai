@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# tag Debian Edu machine as a workstation
+if [ -f /etc/debian-edu/config ]; then
+	sed -i /etc/debian-edu/config -e "s/^PROFILE=.*$/PROFILE=\"Workstation\"/"
+fi

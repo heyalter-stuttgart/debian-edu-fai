@@ -1,0 +1,3 @@
+# All non-default debconf answers for workstation installation
+
+sitesummary-client sitesummary-client/hostclass string workstation

@@ -1,0 +1,21 @@
+#! /bin/bash
+
+# if package locales will be installed, then install it early, before
+#  other packages
+if [ $FAI_ACTION != "install" -a $FAI_ACTION != "dirinstall" ]; then
+   exit 0
+fi
+
+# for Debian Edu installations, we need the hostname before debian-edu-config gets installed
+fcopy -Mv /etc/hostname || echo $HOSTNAME > $target/etc/hostname
+
+# create dummy /etc/debian-edu/config file (to make debian-edu-install.postinst happy)
+mkdir -p $target/etc/debian-edu
+
+cat > $target/etc/debian-edu/config << EOF
+VERSION="$(cat $target/etc/debian_version)"
+PROFILE="Minimal"
+LANGCODE="en"
+LOCALE="en_US.UTF-8"
+EOF
+
