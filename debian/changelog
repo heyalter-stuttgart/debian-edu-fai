@@ -1,0 +1,5 @@
+debian-edu-fai (0.1) UNRELEASED; urgency=medium
+
+  * Initial release to Debian.
+
+ -- Mike Gabriel <sunweaver@debian.org>  Fri, 06 Sep 2019 13:03:37 +0200
