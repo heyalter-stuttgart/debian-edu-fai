@@ -1,0 +1,45 @@
+# Use MD5 passwords, use shadow passords and skip creating local user
+# Local users should be stored in LDAP
+passwd passwd/md5 boolean true
+passwd passwd/make-user boolean false
+passwd passwd/shadow boolean true
+
+# Don't ask for disabling root login
+passwd passwd/root-login boolean true
+
+# Skip the exim4 config.
+exim4-config exim4/dc_eximconfig_configtype select local delivery only; not on a network
+exim4-config exim4/dc_postmaster string root
+
+# Yes, we want to put grub on the master boot record (MBR)
+d-i grub-installer/only_debian boolean true
+
+# Keep old style (aka unpredictable) network interfaces names.
+grub-pc grub2/linux_cmdline_default string net.ifnames=0 quiet
+
+# Pick a random workgroup setting to avoid question during installation
+samba-common samba-common/workgroup string skolelinux
+
+# Get those using popcon to submit to us too
+popularity-contest popularity-contest/submiturls string https://popcon.debian.org/cgi-bin/popcon.cgi
+
+# Always use UTC system clock
+d-i clock-setup/utc boolean true
+
+# Avoid question about encrypting the suspend image on laptops. Should we
+# enable it instead, or wait until we start using encrypted file systems?
+uswsusp uswsusp/encrypt boolean false
+
+# Enable cpufrequtils frequency scaling, to save power
+cpufrequtils cpufrequtils/enable boolean true
+
+# Keep default (no) for hddtemp daemon setting
+hddtemp hddtemp/daemon boolean false
+
+# Set up APT sources, see also our
+# /usr/lib/apt-setup/generators/70debian-edu-install script.  This
+# remove the need to set up APT sources using cfengine.
+choose-mirror-bin mirror/http/hostname string deb.debian.org
+choose-mirror-bin mirror/http/directory string /debian/
+apt-mirror-setup apt-setup/non-free boolean true
+apt-mirror-setup apt-setup/contrib boolean true

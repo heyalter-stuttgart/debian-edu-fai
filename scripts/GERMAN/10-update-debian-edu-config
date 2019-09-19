@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [ -f $target/etc/debian-edu/config ]; then
+	sed -i $target/etc/debian-edu/config -e "s/^LANGCODE=.*$/LANGCODE=\"de\"/"
+	sed -i $target/etc/debian-edu/config -e "s/^LOCALE=.*$/LOCALE=\"de_DE.UTF-8\"/"
+fi
+

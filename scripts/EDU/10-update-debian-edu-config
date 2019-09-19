@@ -1,0 +1,6 @@
+#!/bin/bash
+
+if [ -f /etc/debian-edu/config ] && [ -x /usr/share/doc/debian-edu-install ]; then
+	sed -i /etc/debian-edu/config -e "s/^VERSION=.*$/VERSION=\"$(/usr/lib/debian-edu-install/version)\"/"
+fi
+

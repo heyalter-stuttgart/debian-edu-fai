@@ -1,0 +1,49 @@
+# Common values for servers and workstations (non-standalone install)
+
+# Kerberos client
+krb5-config krb5-config/default_realm string INTERN
+krb5-config krb5-config/dns_for_default boolean true
+krb5-config krb5-config/add_servers boolean false
+krb5-config krb5-config/kerberos_servers string kerberos
+krb5-config krb5-config/admin_server string kerberos
+
+# Settings for nss-ldap replacement nss-ldapd
+libnss-ldapd	libnss-ldapd/nsswitch	multiselect	group, netgroup, networks, passwd, shadow
+
+# Some of the libnss-ldapd settings moved to nslcd in Squeeze
+nslcd	nslcd/ldap-base	string	dc=skole,dc=skolelinux,dc=no
+nslcd	nslcd/ldap-uris	string	ldap://ldap
+nslcd	nslcd/ldap-starttls boolean true
+nslcd	nslcd/ldap-reqcert string demand
+nslcd   nslcd/ldap-cacertfile string /etc/ssl/certs/debian-edu-server.crt
+
+# Update hostname from DNS
+debian-edu-config debian-edu-config/update-hostname boolean true
+
+# Send sitesummary reports to the central collector
+sitesummary-client sitesummary-client/collector_url string http://sitesummary/cgi-bin/sitesummary-collector.cgi
+# Enable NRPE for Nagios configuration generated using sitesummary
+sitesummary-client sitesummary-client/nagios-server string sitesummary
+sitesummary-client sitesummary-client/enable-nagios-nrpe-config boolean true
+
+# enable the WINS settings feature for addresses via DHCP
+samba-common samba-common/dhcp boolean true
+
+# Configure gosa-desktop
+gosa-desktop gosa-desktop/url string https://www.intern/gosa/
+
+# Initial exim4 configuration for clients
+# FIXME find out if this is correct and enough.
+exim4-config	exim4/dc_eximconfig_configtype	select	mail sent by smarthost; no local mail
+exim4-config	exim4/dc_smarthost	string	postoffice.intern
+exim4-config	exim4/dc_local_interfaces	string	127.0.0.1 ; ::1
+exim4-config	exim4/dc_postmaster	string	root
+exim4-config	exim4/dc_readhost	string	postoffice.intern
+exim4-config	exim4/use_split_config	boolean	true
+exim4-config	exim4/mailname	string	postoffice.intern
+exim4-config	exim4/dc_minimaldns	boolean	false
+exim4-config	exim4/dc_other_hostnames	string	intern
+
+# Prefer lightdm, sddm doesn't provide a language chooser
+lightdm	shared/default-x-display-manager	select	lightdm
+sddm	shared/default-x-display-manager	select	lightdm

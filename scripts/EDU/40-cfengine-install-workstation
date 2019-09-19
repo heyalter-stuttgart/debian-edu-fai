@@ -1,0 +1,27 @@
+#! /bin/bash
+
+set -x
+
+# Let's make sure that we have correct http proxy settings.
+if [ -x $target/usr/share/debian-edu-config/tools/update-proxy-from-wpad ]; then 
+	chroot $target /usr/share/debian-edu-config/tools/update-proxy-from-wpad
+fi
+
+# The proxy settings should not have been written to /etc/environment.
+# Let's export those settings to the current shell, so that cf-agent
+# has them...
+for line in $(cat $target/etc/environment | grep -v -E "^#.*" | grep -E ".+=.*"); do
+	export $line;
+done
+
+# Now let's assume, we have http_proxy, https_proxy and ftp_proxy set in our
+# environment. We need to pass them on into the chroot...
+
+echo http_proxy=$http_proxy
+echo https_proxy=$https_proxy
+echo ftp_proxy=$ftp_proxy
+
+# Do the conversion of the vanilla Debian system to a Debian Edu system
+chroot $target strace -f /usr/sbin/cf-agent -I -D installation
+
+set +x
