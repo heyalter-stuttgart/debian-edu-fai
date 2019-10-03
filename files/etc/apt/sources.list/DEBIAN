@@ -1,3 +1,7 @@
-deb {%apt_cdn%}/debian {%release%} main
+deb http://ftp.de.debian.org/debian {%release%} main
+deb http://ftp.de.debian.org/debian {%release%}-updates main
+
 deb {%security_cdn%}/debian-security {%release%}/updates main
-deb {%apt_cdn%}/debian {%release%}-updates main
+
+#deb {%apt_cdn%}/debian {%release%} main
+#deb {%apt_cdn%}/debian {%release%}-updates main

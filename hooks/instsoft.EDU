@@ -19,3 +19,18 @@ LANGCODE="en"
 LOCALE="en_US.UTF-8"
 EOF
 
+# we need to tweak /etc/wgetrc further down, so let's make sure we have the package
+if [ X$verbose = X1 ]; then
+	$ROOTCMD apt-get -y install wget
+else
+	$ROOTCMD apt-get -y install wget > /dev/null
+fi
+
+# make sure, wget uses the FAI server's http proxy during installation
+# important for downloads triggered by some non-free packages (e.g.
+# ttf-mscorefonts-installier)
+sed -i $target/etc/wgetrc \
+    -e "s@^#http_proxy.*=.*@http_proxy = http://faiserver:3128@" \
+    -e "s@^#https_proxy.*=.*@https_proxy = http://faiserver:3128@" \
+    -e "s@^#ftp_proxy.*=.*@ftp_proxy = http://faiserver:3128@" \
+    ${NULL}

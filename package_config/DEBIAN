@@ -18,6 +18,7 @@ unattended-upgrades
 PACKAGES install NONFREE
 # you may want these non-free kernel drivers
 firmware-bnx2 firmware-bnx2x firmware-realtek
+firmware-iwlwifi
 firmware-linux-nonfree
 
 PACKAGES install I386
