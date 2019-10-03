@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# drop the APT http proxy configuration put
+# here by FAI. We will use Debian Edu APT
+# http proxy configuration...
+rm $target/etc/apt/apt.conf.d/02proxy

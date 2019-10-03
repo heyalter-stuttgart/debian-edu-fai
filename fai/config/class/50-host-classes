@@ -7,7 +7,7 @@
 
 # use a list of classes for our demo machine
 case $HOSTNAME in
-    *)
-#           echo "FAIBASE DEBIAN EDU WORKSTATION XORG MATE LVM" ;;
-    	    echo "FAIBASE DEBIAN EDU LVM" ;;
+	*)
+		echo "FAIBASE DEBIAN EDU WORKSTATION XORG MATE LVM LVM_EDU NONFREE" ;;
+#		echo "FAIBASE DEBIAN EDU LVM LVM_EDU" ;;
 esac
