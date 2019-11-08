@@ -1,7 +1,5 @@
 #! /bin/bash
 
-set -x
-
 # for some future cases, where BrowseRemoteProtocols is not set in cups-browsed.conf explicitly
 ainsl etc/cups/cups-browsed.conf "BrowseRemoteProtocols none" "^BrowseRemoteProtocols\s+.*"
 
