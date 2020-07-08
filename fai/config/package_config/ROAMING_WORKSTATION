@@ -1,0 +1,5 @@
+PACKAGES install
+host ldap-utils
+libpam-mklocaluser
+libpam-sss libnss-sss
+libnss-myhostname libnss-mdns libnss-ldapd
