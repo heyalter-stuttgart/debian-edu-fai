@@ -32,12 +32,6 @@ Short: Debian Edu roaming workstation with Gnome desktop will be installed
 Long: Debian Edu roaming workstation with Gnome desktop will be installed.
 Classes: INSTALL FAIBASE DEBIAN EDU ROAMING_WORKSTATION XORG GNOME LVM LVM_EDU_ROAMING NONFREE
 
-Name: Edu/XFCE
-Description: Debian Edu workstation, powered by Xfce Desktop
-Short: Debian Edu workstation with Xfce desktop will be installed
-Long: Debian Edu workstation with Xfce desktop will be installed.
-Classes: INSTALL FAIBASE DEBIAN EDU WORKSTATION XORG XFCE LVM LVM_EDU NONFREE
-
 Name: Inventory
 Description: Show hardware info
 Short: Show some basic hardware infos
