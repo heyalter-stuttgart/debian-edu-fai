@@ -29,6 +29,7 @@ EXCLUDE_WHEEZY=info
 EXCLUDE_JESSIE=info
 EXCLUDE_STRETCH=info
 EXCLUDE_BUSTER=
+EXCLUDE_BULLSEYE=
 EXCLUDE_SID=
 
 EXCLUDE_TRUSTY=dhcp3-client,dhcp3-common,info
@@ -290,7 +291,7 @@ case "$target" in
     SLC7_64) slc amd64 7 ;;
     TRUSTY*|XENIAL*|BIONIC*)
         debgeneric $target $MIRROR_UBUNTU ;;
-    SQUEEZE*|WHEEZY*|JESSIE*|STRETCH*|BUSTER*|SID*)
+    SQUEEZE*|WHEEZY*|JESSIE*|STRETCH*|BUSTER*|BULLSEYE*|SID*)
         debgeneric $target $MIRROR_DEBIAN $ARCH;;
     *) echo "Unknown distribution. Aborting."
        prtdists

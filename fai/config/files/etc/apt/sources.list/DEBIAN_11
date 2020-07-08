@@ -1,0 +1,8 @@
+#deb http://ftp.de.debian.org/debian {%release%} main
+#deb http://ftp.de.debian.org/debian {%release%}-updates main
+
+# different from the URL required for Debian 10
+#deb {%security_cdn%}/debian-security {%release%}-security main
+
+#deb {%apt_cdn%}/debian {%release%} main
+#deb {%apt_cdn%}/debian {%release%}-updates main
