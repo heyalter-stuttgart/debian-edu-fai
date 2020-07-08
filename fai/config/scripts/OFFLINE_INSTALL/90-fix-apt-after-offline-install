@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -x
+
+if [ -e "$target/etc/apt/sources.list.d/fai-mirror-offline.list" ]; then
+	rm "$target/etc/apt/sources.list.d/fai-mirror-offline.list"
+fi
