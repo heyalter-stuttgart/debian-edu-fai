@@ -1,0 +1,9 @@
+deb [trusted=yes arch=amd64] http://faiserver.intern/mirror-deb11-gnome cskoeln non-free
+
+#deb http://ftp.de.debian.org/debian {%release%} non-free
+#deb http://ftp.de.debian.org/debian {%release%}-updates non-free
+
+#deb {%security_cdn%}/debian-security {%release%}-security non-free
+
+#deb {%apt_cdn%}/debian {%release%} non-free
+#deb {%apt_cdn%}/debian {%release%}-updates non-free
