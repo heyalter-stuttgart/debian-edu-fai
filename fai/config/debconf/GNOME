@@ -1,0 +1,5 @@
+# Common values for servers and workstations (non-standalone install)
+# Prefer gdm3 over all others on GNOME installations
+gdm3	shared/default-x-display-manager	select	gdm3
+lightdm	shared/default-x-display-manager	select	gdm3
+sddm	shared/default-x-display-manager	select	gdm3
