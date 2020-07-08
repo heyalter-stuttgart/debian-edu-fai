@@ -29,6 +29,7 @@ memtest86+
 PACKAGES install CHROOT
 linux-image-686-pae-
 linux-image-amd64-
+grub-efi-amd64-bin
 
 PACKAGES install AMD64
 linux-image-amd64
@@ -43,6 +44,7 @@ grub-pc
 
 PACKAGES install GRUB_EFI
 grub-efi
+efibootmgr
 
 PACKAGES install LVM
 lvm2
