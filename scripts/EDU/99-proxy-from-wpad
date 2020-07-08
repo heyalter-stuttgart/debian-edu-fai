@@ -2,5 +2,6 @@
 
 # Let's make really sure that we have correct http proxy settings.
 if [ -x $target/usr/share/debian-edu-config/tools/update-proxy-from-wpad ]; then
-	chroot $target /usr/share/debian-edu-config/tools/update-proxy-from-wpad
+	# never fail, this will be repeated during runtime...
+	chroot $target /usr/share/debian-edu-config/tools/update-proxy-from-wpad || true
 fi
