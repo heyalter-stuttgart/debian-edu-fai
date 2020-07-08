@@ -15,7 +15,7 @@ exim4-config exim4/dc_postmaster string root
 d-i grub-installer/only_debian boolean true
 
 # Keep old style (aka unpredictable) network interfaces names.
-grub-pc grub2/linux_cmdline_default string net.ifnames=0 quiet splash
+#grub-pc grub2/linux_cmdline_default string net.ifnames=0 quiet splash
 
 # Pick a random workgroup setting to avoid question during installation
 samba-common samba-common/workgroup string skolelinux
