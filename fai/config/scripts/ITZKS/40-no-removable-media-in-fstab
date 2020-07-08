@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# Make sure, no USB devices are listed in /etc/fstab
+sed -r -i $target/etc/fstab -e "s@^/dev/usb[0-9]+.*@@g"
+
+# and neither list cdrom / dvdrom drives in /etc/fstab
+sed -r -i $target/etc/fstab -e "s@^/dev/scd[0-9]+.*@@g"

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# We don't need rpc.gssd on NFS clients (yet), if not used, it may start
+# behaving weirdly (observed in Debian jessie, unsure about stretch/buster)
+sed -e 's/^NEED_GSSD=.*/NEED_GSSD=/' -i $target/etc/default/nfs-common

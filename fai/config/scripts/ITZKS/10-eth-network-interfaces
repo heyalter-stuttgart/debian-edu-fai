@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# FAI installs no /etc/network/interfaces file, it places everything
+# that's needed into /etc/network/interfaces.d/
+
+# Hand-over all LAN NICs to NetworkManager
+sed -r -e 's/auto\s+eth[0-9]//' -i $target/etc/network/interfaces
+sed -r -e 's/^(iface\s+eth[0-9]\s+inet\s+dhcp)\s*/#NetworkManager \1/' -i $target/etc/network/interfaces

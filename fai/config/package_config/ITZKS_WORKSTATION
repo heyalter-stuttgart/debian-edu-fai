@@ -1,0 +1,12 @@
+PACKAGES install
+itzks-systems-workstation
+plymouth
+plymouth-themes
+
+PACKAGES install AMD64
+wine32:i386
+playonlinux
+winetricks
+wine-binfmt
+fonts-wine
+q4wine

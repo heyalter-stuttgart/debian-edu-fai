@@ -1,0 +1,10 @@
+PACKAGES install
+itzks-systems-roamingworkstation
+
+PACKAGES install AMD64
+wine32:i386
+playonlinux
+winetricks
+wine-binfmt
+fonts-wine
+q4wine

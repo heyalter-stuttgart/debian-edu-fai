@@ -1,0 +1,21 @@
+PACKAGES install
+itzks-systems-tablet
+cups
+cups-browsed
+ntp
+
+# zum Evaluieren... -> Weglassen!
+#PACKAGES install
+#epiphany-browser
+
+# problematisch, weil buggy
+PACKAGES remove
+command-not-found
+
+# WebCAM access
+PACKAGES install
+cheese
+
+# for admins
+PACKAGES install
+dconf-editor

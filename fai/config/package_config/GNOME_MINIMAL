@@ -1,0 +1,129 @@
+PACKAGES install-norec
+# gnome  -- pulls in too many dependencies, see below
+
+## gnome-core -- pulls in too many dependencies, see below
+libatk-adaptor
+at-spi2-core
+adwaita-icon-theme
+#baobab
+fonts-cantarell
+caribou
+dconf-cli
+dconf-gsettings-backend
+eog
+evince
+#evolution-data-server
+sound-theme-freedesktop
+gdm3
+gedit
+glib-networking
+gnome-backgrounds
+gnome-bluetooth
+gnome-calculator
+gnome-characters
+#gnome-contacts
+gnome-control-center
+gnome-disk-utility
+#gnome-font-viewer
+gnome-keyring
+libpam-gnome-keyring
+#gnome-logs
+gnome-menus
+#gnome-online-accounts
+#gnome-online-miners
+gnome-session
+gnome-settings-daemon
+gnome-shell
+
+### gnome-shell recommendations
+chrome-gnome-shell
+iio-sensor-proxy
+gkbd-capplet
+unzip
+### end of gnome-shell recommendations
+
+gnome-shell-extensions
+#gnome-software (>= 3.30)
+#gnome-system-monitor (>= 3.30)
+gnome-terminal
+gnome-themes-extra
+#gnome-user-docs
+gnome-user-share
+gsettings-desktop-schemas
+gstreamer1.0-plugins-base
+gstreamer1.0-plugins-good
+gstreamer1.0-packagekit
+gstreamer1.0-pulseaudio
+gvfs-backends
+libglib2.0-bin
+gvfs-fuse
+#firefox-esr (>= 30) | firefox (>= 30) |
+chromium
+# | chromium-browser | epiphany-browser
+libcanberra-pulse
+libproxy1-plugin-gsettings
+libproxy1-plugin-webkit
+gkbd-capplet
+nautilus
+pulseaudio
+pulseaudio-module-bluetooth
+system-config-printer-common
+system-config-printer-udev
+gnome-sushi
+totem
+tracker
+yelp
+zenity
+## end of gnome-core
+
+desktop-base
+network-manager-gnome
+libproxy1-plugin-networkmanager
+#cheese
+#file-roller
+#gnome-calendar
+gnome-clocks
+gnome-color-manager
+#gnome-documents
+#gnome-getting-started-docs
+#gnome-maps
+#gnome-music
+#shotwell | gnome-photos
+gnome-screenshot
+#gnome-todo
+gnome-weather
+#orca
+#rygel-playbin
+#rygel-tracker
+#simple-scan
+#vino
+avahi-daemon
+#evolution
+gnome-sound-recorder
+#gnome-tweaks
+#libreoffice-gnome
+#libreoffice-writer
+#libreoffice-calc
+#libreoffice-impress
+libgsf-bin
+#nautilus-sendto
+#rhythmbox
+#seahorse
+#vinagre
+xdg-user-dirs-gtk
+cups-pk-helper
+#evolution-plugins
+#gedit-plugins
+gstreamer1.0-libav
+gstreamer1.0-plugins-ugly
+#rhythmbox-plugins
+#rhythmbox-plugin-cdrecorder
+#totem-plugins
+
+# gnome-shell recommendations
+chrome-gnome-shell
+iio-sensor-proxy
+gkbd-capplet
+unzip
+
+# end of gnome

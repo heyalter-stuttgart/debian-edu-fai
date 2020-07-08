@@ -1,0 +1,5 @@
+#!/bin/bash
+
+chroot $target puppet agent --test
+chroot $target puppet agent --enable
+chroot $target systemctl enable puppet

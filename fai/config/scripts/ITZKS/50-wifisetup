@@ -1,0 +1,40 @@
+### FIXME: this needs to check first, if the to-be-installed system has a WiFi
+###        card at all...
+
+cat <<EOT > $target/etc/NetworkManager/system-connections/SSID.in
+[connection]
+id=@SSID@
+uuid=@UUID@
+type=wifi
+permissions=
+timestamp=@TIMESTAMP@
+autoconnect=true
+
+[wifi]
+mac-address-blacklist=
+mode=infrastructure
+ssid=@SSID@
+
+[wifi-security]
+key-mgmt=wpa-psk
+psk=@password@
+
+[ipv4]
+dns-search=
+method=auto
+ignore-auto-routes=false
+ignore-auto-dns=false
+never-default=false
+
+[ipv6]
+method=ignore
+EOT
+
+# Set permissions on generated file
+chmod go-rwx $target/etc/NetworkManager/system-connections/SSID.in
+
+UUID=$(chroot $target uuidgen -t)
+sed -i 's/@UUID@/'"$UUID"'/' $target/etc/NetworkManager/system-connections/SSID.in
+
+TIMESTAMP=$(date +%s )
+sed -i 's/@TIMESTAMP@/'"$TIMESTAMP"'/' $target/etc/NetworkManager/system-connections/SSID.in

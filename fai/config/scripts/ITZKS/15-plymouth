@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# set the solar theme...
+if ! grep -q Theme=solar $target/etc/plymouth/plymouthd.conf; then
+    chroot $target plymouth-set-default-theme solar
+    chroot $target update-initramfs -k all -u
+fi

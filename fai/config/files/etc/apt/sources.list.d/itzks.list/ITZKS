@@ -1,0 +1,3 @@
+deb {%apt_itzks%}/debian {%release%} main contrib non-free
+deb {%apt_itzks%}/debian {%release%}-backports main contrib non-free
+

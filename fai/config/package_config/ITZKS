@@ -1,0 +1,10 @@
+PACKAGES install
+debian-edu-artwork-spacefun
+#debian-edu-artwork-buster-
+itzks-systems-common
+itzks-keyring
+puppet
+ocsinventory-agent
+plymouth
+plymouth-themes
+uuid-runtime
