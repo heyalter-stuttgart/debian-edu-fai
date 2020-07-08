@@ -9,3 +9,5 @@
 #if [ $do_init_tasks -eq 1 ]; then
 #  echo $HOSTNAME > /proc/sys/kernel/hostname
 #fi
+
+fping ntp.intern 1>/dev/null && ntpdate ntp.intern
