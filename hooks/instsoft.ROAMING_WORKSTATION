@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# tag Debian Edu machine as a roaming workstation
+if [ -f $target/etc/debian-edu/config ]; then
+	sed -i $target/etc/debian-edu/config -e "s/^PROFILE=.*$/PROFILE=\"Roaming-Workstation\"/"
+fi

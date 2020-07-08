@@ -1,0 +1,19 @@
+#!/bin/bash
+
+if ! grep -qE "^HOST tjener\.intern$" $target/etc/ldap/ldap.conf; then
+
+    # append special TLS rules, Base DN, etc. for tjener.intern
+
+    cat <<EOF >> $target/etc/ldap/ldap.conf
+
+HOST tjener.intern
+sudoers_base ou=sudoers,dc=skole,dc=skolelinux,dc=no
+BASE dc=skole,dc=skolelinux,dc=no
+TLS_REQCERT demand
+TLS_CACERT /etc/ssl/certs/debian-edu-server.crt
+EOF
+
+    # this should give roaming workstations access to TJENER's LDAP,
+    # if needed.
+
+fi
