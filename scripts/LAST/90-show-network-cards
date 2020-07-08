@@ -1,0 +1,41 @@
+#! /bin/bash
+
+if [ X$FAI_ACTION = Xinstall -o X$FAI_ACTION = X ]; then
+    :
+else
+    return 0
+fi
+if [ X$action = Xdirinstall ]; then
+    return 0
+fi
+
+grep -q INSTALL $LOGDIR/FAI_CLASSES || return 0
+[ "$flag_menu" ] || return 0
+
+NETDEVS=$(LANG=C ip a | grep -E "^[0-9]+:" | grep -v "lo:" | sed -r -e 's/[0-9]+:\ ([^:]+):.*/\1/')
+
+NETDEVINFO=""
+for dev in $NETDEVS; do
+	mac=$(LANG=C ip -o l show $dev | grep "link/ether" | sed -r -e 's/.*link\/ether\ ([^\ ]+)\ .*/\1/')
+	NETDEVINFO="$NETDEVINFO\nDevice: $dev\nMAC-Address: $mac\n\n"
+done
+
+out=$(tty)
+blue=$(mktemp)
+echo 'screen_color = (CYAN,BLUE,ON)' > $blue
+
+DIALOGRC=$blue dialog --colors \
+                     --clear \
+                     --aspect 6 \
+                     --title "FAI - Fully Automatic Installation" \
+                     --trim \
+                     --msgbox "\n\nYour network cards are:\n
+$NETDEVINFO\n\n" 0 0 1>$out
+
+# stop on any error, or if ESC was hit
+if [ $? -ne 0 ]; then
+    task_error 999
+fi
+
+rm $blue
+unset blue
