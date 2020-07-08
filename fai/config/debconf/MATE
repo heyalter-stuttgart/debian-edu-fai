@@ -1,0 +1,4 @@
+# Prefer lightdm, sddm doesn't provide a language chooser, gdm3 is very GNOME'ish
+lightdm	shared/default-x-display-manager	select	lightdm
+sddm	shared/default-x-display-manager	select	lightdm
+gdm3	shared/default-x-display-manager	select	lightdm
