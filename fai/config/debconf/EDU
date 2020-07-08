@@ -44,9 +44,5 @@ exim4-config	exim4/mailname	string	postoffice.intern
 exim4-config	exim4/dc_minimaldns	boolean	false
 exim4-config	exim4/dc_other_hostnames	string	intern
 
-# Prefer lightdm, sddm doesn't provide a language chooser
-lightdm	shared/default-x-display-manager	select	lightdm
-sddm	shared/default-x-display-manager	select	lightdm
-
 # trigger first-boot logics of debian-edu-install
 debian-edu-install	debian-edu-install/run-firstboot	boolean	true
