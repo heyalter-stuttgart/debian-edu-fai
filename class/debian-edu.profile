@@ -8,17 +8,29 @@ Use this installation profile for server-like systems that do not
 need a graphical login.
 Classes: INSTALL FAIBASE DEBIAN DEBIAN_10 EDU LVM LVM_EDU NONFREE
 
-Name: Edu+Workstation/MATE
+Name: Edu+EFI-Workstation/MATE
 Description: Debian Edu workstation, powered by Mate Desktop
 Short: Debian Edu workstation with Mate desktop will be installed
 Long: Debian Edu workstation with Mate desktop will be installed.
 Classes: INSTALL FAIBASE DEBIAN DEBIAN_10 EDU WORKSTATION XORG MATE LVM LVM_EDU NONFREE
 
-Name: Edu+Roaming-Workstation/MATE
+Name: Edu+Roaming-EFI-Workstation/MATE
 Description: Debian Edu roaming workstation, powered by Mate Desktop
 Short: Debian Edu roaming workstation with Mate desktop will be installed
 Long: Debian Edu roaming workstation with Mate desktop will be installed.
 Classes: INSTALL FAIBASE DEBIAN DEBIAN_10 EDU ROAMING_WORKSTATION XORG MATE LVM LVM_EDU_ROAMING NONFREE
+
+Name: Edu+BIOS-Workstation/MATE
+Description: Debian Edu workstation, powered by Mate Desktop
+Short: Debian Edu workstation with Mate desktop will be installed
+Long: Debian Edu workstation with Mate desktop will be installed.
+Classes: INSTALL FAIBASE DEBIAN DEBIAN_10 EDU WORKSTATION XORG MATE LVM LVM_EDU_LEGACY NONFREE
+
+Name: Edu+Roaming-BIOS-Workstation/MATE
+Description: Debian Edu roaming workstation, powered by Mate Desktop
+Short: Debian Edu roaming workstation with Mate desktop will be installed
+Long: Debian Edu roaming workstation with Mate desktop will be installed.
+Classes: INSTALL FAIBASE DEBIAN DEBIAN_10 EDU ROAMING_WORKSTATION XORG MATE LVM LVM_EDU_ROAMING_LEGACY NONFREE
 
 Name: Edu+Workstation/GNOME
 Description: Debian Edu workstation, powered by Gnome Desktop
