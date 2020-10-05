@@ -1,9 +1,7 @@
-deb [trusted=yes arch=amd64] http://faiserver.intern/mirror-deb11-gnome cskoeln contrib
-
 #deb http://ftp.de.debian.org/debian {%release%} contrib
 #deb http://ftp.de.debian.org/debian {%release%}-updates contrib
 
-deb {%security_cdn%}/debian-security {%release%}-security contrib
+deb {%security_cdn%}/debian-security {%release%}/updates contrib
 
 deb {%apt_cdn%}/debian {%release%} contrib
 deb {%apt_cdn%}/debian {%release%}-updates contrib
