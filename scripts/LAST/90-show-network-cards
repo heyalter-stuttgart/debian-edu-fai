@@ -29,7 +29,7 @@ DIALOGRC=$blue dialog --colors \
                      --aspect 6 \
                      --title "FAI - Fully Automatic Installation" \
                      --trim \
-                     --msgbox "\n\nYour network cards are:\n
+                     --msgbox "\n\nHostname: $HOSTNAME\n\nYour network cards are:\n
 $NETDEVINFO\n\n" 0 0 1>$out
 
 # stop on any error, or if ESC was hit
