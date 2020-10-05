@@ -1,4 +1,4 @@
-#Default: Edu/MATE
+#Default: Edu+Roaming-EFI-Workstation/MATE
 
 Name: Edu/Minimal
 Description: Minimal Debian Edu installation via FAI
