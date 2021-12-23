@@ -1,8 +1,7 @@
-ROOTPW='<pwhash-for-root-account'
-wifi_ssid='<edu-essid>'
-wifi_password='<edu-wifi-pw>'
+#ROOTPW='@rootpw'
+#wifi_essid='@wifi_essid@'
+#wifi_passphrase='@wifi_passphrase@'
 
 # a user account will be created
-username='<localuser>'
-USERPW='<pwhash-for-localuser-account>'
-
+#username='@localuser@'
+#USERPW='@localuserpw@'
