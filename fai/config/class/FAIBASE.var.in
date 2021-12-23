@@ -9,8 +9,8 @@ TIMEZONE=Europe/Berlin
 
 # the hash of the root password for the new installed linux system
 # pw is "fai"
-#ROOTPW='$1$kBnWcO.E$djxB128U7dMkrltJHPf6d1'
-ROOTPW='$1$C3yKcmvl$SKluYo7f7GmPtebTTWAQ4.'
+ROOTPW='$1$kBnWcO.E$djxB128U7dMkrltJHPf6d1'
+#ROOTPW='@rootpw@'
 
 # errors in tasks greater than this value will cause the installation to stop
 STOP_ON_ERROR=700
@@ -19,8 +19,9 @@ STOP_ON_ERROR=700
 MAXPACKAGES=800
 
 # a user account will be created
-#username=demo
-#USERPW='$1$kBnWcO.E$djxB128U7dMkrltJHPf6d1'
+#username='@localuser@'
+#USERPW='@localuserpw@'
 
-LOGUSER='fai'
-LOGSERVER='faiserver.intern'
+# user / server to use for storing FAI installation logs... (e.g. fai@faiserver.intern)
+#LOGUSER='@fai_loguser@'
+#LOGSERVER='@fai_logserver@'
