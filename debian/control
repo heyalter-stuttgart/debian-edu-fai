@@ -14,7 +14,8 @@ Architecture: all
 Multi-Arch: foreign
 Depends: ${misc:Depends},
          ${perl:Depends},
-Suggests: fai-server
+Recommends: ipxe,
+            fai-server,
 Description: FAI config space for setting up Debian Edu workstations
  The Debian Edu project provides Debian based systems customized for
  schools and other education facilities.
