@@ -8,14 +8,14 @@ if [ -e /var/lib/fai/config/class/ITZKS_CUSTOMER.var ]; then
 
 	if [ -e $target/etc/NetworkManager/system-connections/SSID.in ]; then
 
-		# Set wifi_ssid from ITZKS_CUSTOMER.var
-		sed -i 's/@SSID@/'"${wifi_ssid}"'/g' $target/etc/NetworkManager/system-connections/SSID.in
+		# Set wifi_essid from ITZKS_CUSTOMER.var
+		sed -i 's/@SSID@/'"${wifi_essid}"'/g' $target/etc/NetworkManager/system-connections/SSID.in
 
 		# Set wifi_password from ITZKS_CUSTOMER.var
 		sed -i 's/@password@/'"${wifi_password}"'/' $target/etc/NetworkManager/system-connections/SSID.in
 
 		# Move tweaked template to real configuration file
-		mv $target/etc/NetworkManager/system-connections/SSID.in $target/etc/NetworkManager/system-connections/"${wifi_ssid}"
+		mv $target/etc/NetworkManager/system-connections/SSID.in $target/etc/NetworkManager/system-connections/"${wifi_essid}"
 
 	fi
 
