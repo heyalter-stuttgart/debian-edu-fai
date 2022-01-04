@@ -5,5 +5,5 @@ primary  -           0-           -       -
 
 disk_config lvm
 vg  vg_system  disk1.3
-vg_system-root   /      4G-80G     ext4  errors=remount-ro
+vg_system-root   /      12G-80G   ext4  errors=remount-ro
 vg_system-swap_1 swap   RAM:150%  swap  sw
