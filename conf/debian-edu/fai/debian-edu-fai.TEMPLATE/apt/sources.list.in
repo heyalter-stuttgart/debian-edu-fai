@@ -1,0 +1,11 @@
+# These lines should work for many sites
+
+deb @mirrorurl@ @codename@ main contrib non-free
+deb @mirrorurl@-security @codename@-security main contrib non-free
+#deb @mirrorurl@ @codename@-backports main contrib non-free
+
+# from @codename@ on you need
+#deb @mirrorurl@-security @codename@-security main contrib non-free
+
+# repository that may contain newer fai packages for @codename@
+#deb http://fai-project.org/download @codename@ koeln
