@@ -1,4 +1,4 @@
-#ROOTPW='@rootpw'
+#ROOTPW='@rootpw@'
 #wifi_essid='@wifi_essid@'
 #wifi_passphrase='@wifi_passphrase@'
 
