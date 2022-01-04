@@ -1,0 +1,21 @@
+# debian-edu-fai adapted nfsroot.conf...
+
+# For a detailed description see nfsroot.conf(5)
+
+# "<suite> <mirror>" for debootstrap
+FAI_DEBOOTSTRAP="@codename@ @mirrorurl@"
+# this is the hashed version of the password 'fai'
+#FAI_ROOTPW='$1$kBnWcO.E$djxB128U7dMkrltJHPf6d1'
+FAI_ROOTPW='@rootpw@'
+
+NFSROOT=/srv/fai/nfsroots.debian-edu-fai/@arch@+@codename@
+TFTPROOT=/srv/tftp/fai.@arch@+@codename@ # don't change this, we won't use it...
+NFSROOT_HOOKS=/etc/fai/debian-edu-fai/@arch@+@codename@/nfsroot-hooks/
+FAI_DEBOOTSTRAP_OPTS="--arch=@arch@"
+
+# Configuration space (should be left as is, all FAI installers should use the same config space)
+FAI_CONFIGDIR=/srv/fai/config
+
+# Import an authorized_keys file (or id_<crypto>.pub) into the FAI nfsroot
+# so that ssh root@<fai-client> is possible without password authentication.
+#SSH_IDENTITY=/root/.ssh/authorized_keys

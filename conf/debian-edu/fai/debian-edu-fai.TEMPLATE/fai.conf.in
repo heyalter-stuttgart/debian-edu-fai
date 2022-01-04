@@ -1,0 +1,7 @@
+# debian-edu-fai adapted fa.conf...
+
+# See fai.conf(5) for detailed information.
+
+# Account for saving log files and calling fai-chboot.
+#LOGUSER='@fai_loguser@'
+#LOGSERVER='@fai_logserver@'
