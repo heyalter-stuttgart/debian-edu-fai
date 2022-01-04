@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# tag Debian Edu machine as a workstation
+if [ -f $target/etc/debian-edu/config ]; then
+	sed -i $target/etc/debian-edu/config -e "s/^PROFILE=.*$/PROFILE=\"Minimal\"/"
+fi
+
