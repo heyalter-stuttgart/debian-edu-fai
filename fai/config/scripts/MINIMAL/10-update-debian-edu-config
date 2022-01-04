@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# tag Debian Edu machine as a minimal installation
+if [ -f $target/etc/debian-edu/config ]; then
+
+	# FIXME: we already do this in hooks/instsoft.MINIMAL... (really required here again?)
+	sed -i $target/etc/debian-edu/config -e "s/^PROFILE=.*$/PROFILE=\"Minimal\"/"
+
+	# reconfigure debian-edu-install to get desktop profiles right
+	export DEBIAN_FRONTEND=noninteractive
+	chroot $target dpkg-reconfigure debian-edu-install
+	unset DEBIAN_FRONTEND
+fi
