@@ -1,0 +1,2 @@
+/srv/fai/config  *(async,ro,no_subtree_check)
+/srv/fai/nfsroots.debian-edu-fai *(async,ro,no_subtree_check,no_root_squash)
