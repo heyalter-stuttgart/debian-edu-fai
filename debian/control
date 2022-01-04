@@ -16,6 +16,7 @@ Depends: ${misc:Depends},
          ${perl:Depends},
 Recommends: ipxe,
             fai-server,
+            qemu-user-static,
 Description: FAI config space for setting up Debian Edu workstations
  The Debian Edu project provides Debian based systems customized for
  schools and other education facilities.
