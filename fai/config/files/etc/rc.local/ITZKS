@@ -9,13 +9,10 @@
 # In order to enable or disable this script just change the execution
 # bits.
 
-# late in the boot process restart autofs(-ldap)...
-invoke-rc.d autofs restart
 
-if [ ! -e /usr/local/share/ca-certificates/debian-edu/Debian-Edu_rootCA.crt ] && [ -e /etc/ssl/certs/Debian-Edu_rootCA.crt ]; then
+# workaround until debian-edu-config bug #971780 is fixed...
+if [ -e /usr/local/share/ca-certificates/Debian-Edu_rootCA.crt ] && [ ! -h /etc/ssl/certs/Debian-Edu_rootCA.pem ]; then
 
-	mkdir -p /usr/local/share/ca-certificates/debian-edu/
-	cp /etc/ssl/certs/Debian-Edu_rootCA.crt /usr/local/share/ca-certificates/debian-edu/
 	update-ca-certificates
 
 fi
