@@ -2,6 +2,8 @@
 
 # tag Debian Edu machine as a roaming workstation
 if [ -f $target/etc/debian-edu/config ]; then
+
+	# FIXME: we already do this in hooks/instsoft.ROAMING_WORKSTATION... (really required here again?)
 	sed -i $target/etc/debian-edu/config -e "s/^PROFILE=.*$/PROFILE=\"Roaming-Workstation\"/"
 
 	# reconfigure debian-edu-install to get desktop profiles right
