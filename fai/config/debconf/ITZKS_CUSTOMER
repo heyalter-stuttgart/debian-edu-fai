@@ -1,7 +1,0 @@
-
-# ITZkS Customer 
-itzks-systems-common itzks-systems-common/customer-name select SKOLE
-
-# OCS Inventory Agent
-ocsinventory-agent ocsinventory-agent/tag string SKOLE
-
