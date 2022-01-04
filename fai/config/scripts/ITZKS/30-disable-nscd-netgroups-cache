@@ -1,7 +1,0 @@
-#!/bin/bash
-
-# Disable NIS netgroup cache in NSCD, has been buggy in glibc since
-# Debian jessie...
-if [ -e $target/etc/nscd.conf ]; then
-    sed -r -i $target/etc/nscd.conf -e "s/(\s+)enable-cache(\s+)netgroup(\s+)yes/\1enable-cache\2netgroup\3no/"
-fi
