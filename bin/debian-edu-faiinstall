@@ -1,0 +1,373 @@
+#!/bin/sh
+#
+# Prepare for FAI installation of Debian Edu.
+
+set -ex
+
+LC_ALL=C
+export LC_ALL
+
+## FIXME: Why is resolv.conf empty or missing? Because network 
+## was started in the chroot (target)? 
+## Try to find the DNS from the leases file, if that fails use
+## default DNS:
+if [ ! -s /etc/resolv.conf ] ; then
+	DNS="10.0.2.2"
+	LEASEDIR=/var/lib/dhcp/
+	if [ -d $LEASEDIR ] ; then
+		LEASEFILE=$LEASEDIR`ls -tr -1 $LEASEDIR | tail -n 1`
+		if [ -r $LEASEFILE ] ; then
+			if DNSLEASE=`cat $LEASEFILE | grep domain-name-servers | \
+				tail -n 1 | \
+				grep -o "[0-9]\+\.[0-9]\+\.[0-9]\+\.[0-9]\+"` ; then
+				DNS=$DNSLEASE
+				echo "info: Found leases file and domain-name-server: $DNS."
+			else
+				echo "info: Could not extract DNS from leases file."
+			fi
+		fi
+	fi
+	echo "info: Create temporary /etc/resolv.conf with DNS: $DNS."
+	cat >> /etc/resolv.conf <<EOF
+## This is a temporary resolv.conf created by $0.
+## If you find it after installation, something went wrong. Try to replace it 
+## by a symlink: /etc/resolv.conf -> /etc/resolvconf/run/resolv.conf, i.e.: 
+## rm /etc/resolv.conf; ln -s /etc/resolvconf/run/resolv.conf /etc/resolv.conf
+nameserver $DNS
+search intern
+EOF
+	fi
+
+# Make sure the created directories and files are readable by tfptd
+# run as user nobody.
+umask 022
+
+# Fetch ftp_proxy and http_proxy if set globally
+if [ -f /etc/environment ] ; then
+	. /etc/environment
+fi
+
+###
+### FAI Setup
+###
+
+[ "$archs" ]            || archs=$(command -V dpkg 1>/dev/null 2>/dev/null && dpkg --print-architecture || uname -m)
+[ "$codenames" ]        || codenames=$(cat /etc/os-release | grep VERSION_CODENAME | cut -d "=" -f2)
+[ "$http_proxy" ]       || unset http_proxy
+[ "$ftp_proxy" ]        || unset ftp_proxy
+[ "$mirrorurl" ]        || mirrorurl=http://deb.debian.org/debian
+[ "$rootpw" ]           || rootpw=""
+[ "$localuser" ]        || localuser=""
+[ "$localuserpw" ]      || localuserpw=""
+[ "$wifi_essid" ]       || wifi_essid=""
+[ "$wifi_passphrase" ]  || wifi_passphrase=""
+[ "$tftpdir" ]          || tftpdir="/srv/tftp"
+[ "$wifi_essid" ]       || wifi_essid=""
+[ "$wifi_passphrase" ]  || wifi_passphrase=""
+[ "$fai_logserver" ]    || unset fai_logserver
+[ "$fai_loguser" ]      || unset fai_loguser
+[ "$school_tag" ]       || school_tag="SKOLE"
+
+# required for pre-selecting the default boot item in iPXE config
+[ "$default_arch" ]     || default_arch="$(echo ${archs} | cut -d " " -f1)"
+[ "$default_codename" ] || default_codename=$(echo ${codenames} | cut -d " " -f1)
+
+# only set plymouth theme if known by the desktop-theme ...
+if [ -e /etc/alternatives/desktop-theme/plymouth ]; then
+	[ "$theme" ]      || theme="$(ls -L /etc/alternatives/desktop-theme/plymouth | grep script | cut -d'.' -f 1)"
+fi
+
+# source Debian Edu's config file
+if [ -f /etc/debian-edu/config ] ; then
+	. /etc/debian-edu/config
+fi
+
+# source debian-edu-fai's config file
+# Allow site specific overrides to the variables
+if [ -f /etc/debian-edu/faiinstall.conf ] ; then
+	. /etc/debian-edu/faiinstall.conf
+fi
+
+mkdir -p "${tftpdir}/debian-edu-fai/"
+# prepare menufile creation (always start fresh)
+menuitems=${tftpdir}/debian-edu-fai/fai-menuitems.cfg
+menuindex=1
+menufile=${tftpdir}/debian-edu-fai/fai-installers.cfg
+if [ true = "${graphicdi}" ]; then
+	gtkvideo="vga=788"
+fi
+if [ -e "${menuitems}" ]; then
+	mv "${menuitems}" "${menuitems}.~"
+fi
+if [ -e "${menufile}" ]; then
+	mv "${menufile}" "${menufile}.~"
+fi
+touch "${menuitems}"
+touch "${menufile}"
+
+for codename in ${codenames}; do
+
+	# skip codenames that don't sound like Debian suites...
+	if ! echo "jessie stretch buster bullseye bookworm sid unstable" | grep -q "${codename}"; then
+		echo "WARNING: The name '${codename}' is not a known and recent Debian distribution codename. Skipping..."
+		continue
+	fi
+
+	# iterate over configured FAI client architectures...
+	for arch in ${archs}; do
+
+		# create codename based fai base config
+		faiconfig="/etc/debian-edu/fai/debian-edu-fai.${arch}+${codename}"
+		if [ -d /etc/debian-edu/fai/debian-edu-fai.TEMPLATE ]; then
+			if [ -d "${faiconfig}" ]; then
+				rm -Rf "${faiconfig}"
+			fi
+			cp -a /etc/debian-edu/fai/debian-edu-fai.TEMPLATE "${faiconfig}"
+			touch "${faiconfig}/DONT_MODIFY_FILES_IN_THIS_DIRECTORY"
+		else
+			echo "ERROR: Failed to create FAI configuration in ${faiconfig}, no debian-edu-fai.TEMPLATE directory found"
+			exit 1
+		fi
+
+		# fill in placeholders (@rootpw@, @codename@ and @arch@) in nfsroot.conf.in
+		find "${faiconfig}" -name '*.in' | while read file_to_adapt; do
+
+			cp ${file_to_adapt} ${file_to_adapt%.in}
+
+			[ "$rootpw" ]             && export rootpw          && perl -p -e "s/\@rootpw\@/\$ENV{rootpw}/g" "${file_to_adapt%.in}" > "${file_to_adapt%.in}.new" && mv "${file_to_adapt%.in}.new" "${file_to_adapt%.in}"
+			[ "$mirrorurl" ]          && export mirrorurl       && perl -p -e "s/\@mirrorurl\@/\$ENV{mirrorurl}/g" "${file_to_adapt%.in}" > "${file_to_adapt%.in}.new" && mv "${file_to_adapt%.in}.new" "${file_to_adapt%.in}"
+			[ "$codename" ]           && export codename        && perl -p -e "s/\@codename\@/\$ENV{codename}/g" "${file_to_adapt%.in}" > "${file_to_adapt%.in}.new" && mv "${file_to_adapt%.in}.new" "${file_to_adapt%.in}"
+			[ "$arch" ]               && export arch            && perl -p -e "s/\@arch\@/\$ENV{arch}/g" "${file_to_adapt%.in}" > "${file_to_adapt%.in}.new" && mv "${file_to_adapt%.in}.new" "${file_to_adapt%.in}"
+
+			# FIXME: also comment out variables that are not set (anymore) in /etc/debian-edu/faiinstall.cfg
+
+			[ "$fai_logserver" ]      && export fai_logserver   && perl -p -e "s/^(#|)LOGSERVER=.{0,1}\@fai_logserver\@.{0,1}\s*\$/LOGSERVER=\'\$ENV{fai_logserver}\'\n/g" "${file_to_adapt%.in}" > "${file_to_adapt%.in}.new"         && mv "${file_to_adapt%.in}.new" "${file_to_adapt%.in}"
+			[ "$fai_loguser" ]        && export fai_loguser     && perl -p -e "s/^(#|)LOGUSER=.{0,1}\@fai_loguser\@.{0,1}\s*\$/LOGUSER=\'\$ENV{fai_loguser}\'\n/g" "${file_to_adapt%.in}" > "${file_to_adapt%.in}.new"                 && mv "${file_to_adapt%.in}.new" "${file_to_adapt%.in}"
+
+			chown root:root ${file_to_adapt%.in}
+			chmod 0600 ${file_to_adapt%.in}
+			rm ${file_to_adapt}
+
+		done
+
+		# source the NFS conf file... this might override our FAI_CONFIGDIR
+		# (but should not as recommended in our nfsroot.conf.in template)
+		if [ -f "$faiconfig/nfsroot.conf" ]; then
+			. $faiconfig/nfsroot.conf
+		else
+			echo "ERROR: No nfsroot.conf file found in $faiconfig/, can't continue..."
+			exit 1
+		fi
+
+		# hard-code some sensible defaults in case they have been commented out in $faiconfig/nfsroot.conf
+		[ "$FAI_DEBOOTSTRAP" ]      || FAI_DEBOOTSTRAP="${codename} http://deb.debian.org/debian"
+		[ "$FAI_ROOTPW" ]           || FAI_ROOTPW="${rootpw}"
+		[ "$NFSROOT" ]              || NFSROOT="/srv/fai/nfsroot.${arch}+${codename}"
+		[ "$TFTPROOT" ]             || TFTPROOT="${tftpdir}/fai.${arch}+${codename}"
+		[ "$NFSROOT_HOOKS" ]        || NFSROOT_HOOKS="/etc/debian-edu/fai/debian-edu-fai.${arch}+${codename}/"
+		[ "$FAI_DEBOOTSTRAP_OPTS" ] || FAI_DEBOOTSTRAP_OPTS="--arch=${arch}"
+		[ "$FAI_CONFIGDIR" ]        || FAI_CONFIGDIR="/srv/fai/config"
+
+		# if FAI_CONFIGDIR is a symlink, we need to find the real location...
+		if [ -h ${FAI_CONFIGDIR} ]; then
+			FAI_CONFIGDIR_REAL="$(readlink ${FAI_CONFIGDIR})"
+		fi
+
+		# Copy FAI config space into /srv/fai/config if not already present
+		if [ ! -d "${FAI_CONFIGDIR_REAL}" ]; then
+			if [ -d /usr/share/debian-edu-fai/fai/config ]; then
+				cp -a /usr/share/debian-edu-fai/fai/config /srv/fai/
+			else
+				echo "ERROR: Package debian-edu-fai is not installed, please install it first"
+				exit 1
+			fi
+		fi
+
+		# Update variables to be customized in FAI config space
+
+		# This code block might be executed on the same FAI_CONFIGDIR several times
+		# (once per arch and codename).
+		# This is a known issue and works as designed. People might have chosen to
+		# use difference FAI_CONFIGDIR values for different environments and with
+		# such a choice executing the below per arch and per codename makes sense.
+		find ${FAI_CONFIGDIR_REAL} -name '*.in' | while read file_to_adapt; do
+
+			cp ${file_to_adapt} ${file_to_adapt%.in}
+
+			# FIXME: also comment out variables that are not set (anymore) in /etc/debian-edu/faiinstall.cfg
+
+			[ "$rootpw" ]             && export rootpw          && perl -p -e "s/^(#|)ROOTPW=.{0,1}\@rootpw\@.{0,1}\s*\$/ROOTPW=\'\$ENV{rootpw}\'\n/g" "${file_to_adapt%.in}" > "${file_to_adapt%.in}.new"                                     && mv "${file_to_adapt%.in}.new" "${file_to_adapt%.in}"
+			[ "$localuser" ]          && export localuser       && perl -p -e "s/^(#|)username=.{0,1}\@localuser\@.{0,1}\s*\$/username=\'\$ENV{localuser}\'\n/g" "${file_to_adapt%.in}" > "${file_to_adapt%.in}.new"                           && mv "${file_to_adapt%.in}.new" "${file_to_adapt%.in}"
+			[ "$localuserpw" ]        && export localuserpw     && perl -p -e "s/^(#|)USERPW=.{0,1}\@localuserpw\@.{0,1}\s*\$/USERPW=\'\$ENV{localuserpw}\'\n/g" "${file_to_adapt%.in}" > "${file_to_adapt%.in}.new"                           && mv "${file_to_adapt%.in}.new" "${file_to_adapt%.in}"
+			[ "$wifi_essid" ]         && export wifi_essid      && perl -p -e "s/^(#|)wifi_essid=.{0,1}\@wifi_essid\@.{0,1}\s*\$/wifi_essid=\'\$ENV{wifi_essid}\'\n/g" "${file_to_adapt%.in}" > "${file_to_adapt%.in}.new"                     && mv "${file_to_adapt%.in}.new" "${file_to_adapt%.in}"
+			[ "$wifi_passphrase" ]    && export wifi_passphrase && perl -p -e "s/^(#|)wifi_passphrase=.{0,1}\@wifi_passphrase\@.{0,1}\s*\$/wifi_passphrase=\'\$ENV{wifi_passphrase}\'\n/g" "${file_to_adapt%.in}" > "${file_to_adapt%.in}.new" && mv "${file_to_adapt%.in}.new" "${file_to_adapt%.in}"
+			[ "$fai_logserver" ]      && export fai_logserver   && perl -p -e "s/^(#|)LOGSERVER=.{0,1}\@fai_logserver\@.{0,1}\s*\$/LOGSERVER=\'\$ENV{fai_logserver}\'\n/g" "${file_to_adapt%.in}" > "${file_to_adapt%.in}.new"         && mv "${file_to_adapt%.in}.new" "${file_to_adapt%.in}"
+			[ "$fai_loguser" ]        && export fai_loguser     && perl -p -e "s/^(#|)LOGUSER=.{0,1}\@fai_loguser\@.{0,1}\s*\$/LOGUSER=\'\$ENV{fai_loguser}\'\n/g" "${file_to_adapt%.in}" > "${file_to_adapt%.in}.new"                 && mv "${file_to_adapt%.in}.new" "${file_to_adapt%.in}"
+			[ "$school_tag" ]         && export school_tag      && perl -p -e "s/\@SKOLE\@/\$ENV{school_tag}/g" "${file_to_adapt%.in}" > "${file_to_adapt%.in}.new" && mv "${file_to_adapt%.in}.new" "${file_to_adapt%.in}"
+
+			chown root:root ${file_to_adapt}
+			chmod 0600 ${file_to_adapt}
+
+		done
+
+		# set APTPROXY for use by fai-make-nfsroot...
+		if [ -n "${http_proxy}" ]; then
+			export APTPROXY="${http_proxy}"
+			export http_proxy
+		fi
+
+		# the NFSROOT variable we should have obtained from sourcing $faiconfig/nfsroot.conf
+		# (aka /etc/fai/nfsroot.conf) above...
+		if [ -n "${NFSROOT}" ] && [ -n "${codename}" ]; then
+
+			# create nfs-root from scratch (if not present or not fully created in a previous run)
+
+			# Create a ".DEBIAN_EDU_FAI_NFSROOT_INSTALLATION_COMPLETED" file at the end
+			# of fai-make-nfsroot and check for the presence of that file for detecting
+			# whether a fresh NFSROOT setup is required or just an NFSROOT update/upgrade.
+			if [ ! -f "${NFSROOT}/.DEBIAN_EDU_FAI_NFSROOT_INSTALLATION_COMPLETED" ]; then
+
+				# enforce NFSROOT re-creation (or initial creation)
+				fai-make-nfsroot -v -f -N -C ${faiconfig}
+				touch "${NFSROOT}/.DEBIAN_EDU_FAI_NFSROOT_INSTALLATION_COMPLETED"
+
+			else
+
+				# update packages (and clean old kernel images) in NFSROOT
+				fai-make-nfsroot -v -k -N -C ${faiconfig}
+				# adjust nfsroot configuration (SSH pubkeys, rootpw, etc.)
+				fai-make-nfsroot -v -a -C ${faiconfig}
+
+			fi
+
+			# Remove /srv/tftp/fai.ARCH+CODENAME after NFSROOT creation.
+			# We don't need that as we use our own iPXE boot config (instead
+			# of syslinux which is used by FAI by default).
+			if [ -d "${TFPTROOT}/" ]; then
+				rm -Rf "${TFTPROOT}/"
+			fi
+
+			# symlink kernel and initrd files into 
+			if [ -e "${NFSROOT}/vmlinuz" ] && [ -e "${NFSROOT}/initrd.img" ]; then
+
+				# create kernel dir in tftp area
+				mkdir -p "${tftpdir}/debian-edu-fai/${arch}+${codename}/"
+
+				# symlink vmlinuz / initrd in the NFSROOT
+				if [ -e "${tftpdir}/debian-edu-fai/${arch}+${codename}/vmlinuz" ]; then
+					rm "${tftpdir}/debian-edu-fai/${arch}+${codename}/vmlinuz"
+				fi
+				cp -a "${NFSROOT}/$(readlink "${NFSROOT}/vmlinuz")" "${tftpdir}/debian-edu-fai/${arch}+${codename}/vmlinuz"
+				if [ -e "${tftpdir}/debian-edu-fai/${arch}+${codename}/initrd.img" ]; then
+					rm "${tftpdir}/debian-edu-fai/${arch}+${codename}/initrd.img"
+				fi
+				cp -a "${NFSROOT}/$(readlink "${NFSROOT}/initrd.img")" "${tftpdir}/debian-edu-fai/${arch}+${codename}/initrd.img"
+
+			fi
+		fi
+
+		cat >> "${menuitems}" <<EOF
+item --key ${menuindex} ${arch}+${codename}    Install Debian Edu (${arch}, ${codename}) via FAI
+EOF
+		menuindex=$((menuindex+1))
+
+		# create ipxe menu entry for this FAI installer variant...
+		cat >> "${menufile}" <<EOF
+
+:${arch}+${codename}
+set params net.ifnames=0 ip=dhcp root=$(hostname -i):${NFSROOT}:vers=3 rootovl FAI_FLAGS=verbose,sshd,createvt,menu FAI_CONFIG_SRC=nfs://$(hostname -f)/${FAI_CONFIGDIR} FAI_ACTION=install quiet rd.net.timeout.carrier=15
+kernel /debian-edu-fai/${arch}+${codename}/vmlinuz initrd=initrd.img \${params}
+initrd /debian-edu-fai/${arch}+${codename}/initrd.img
+boot || goto failed
+EOF
+	done
+done
+
+###
+### TFTP / iPXE Setup
+###
+
+# Start from a clean state after any configuration changes have been made.
+if [ -d $tftpdir/debian-edu-fai ] ; then
+	rm -f $tftpdir/debian-edu-fai/debian-edu-fai.png
+	rm -f $tftpdir/debian-edu-fai/fai-install.cfg
+	rm -f $tftpdir/debian-edu-fai/debian-edu-fai.ipxe
+fi
+
+[ -d $tftpdir ] || mkdir $tftpdir
+[ -d $tftpdir/debian-edu-fai ] || mkdir $tftpdir/debian-edu-fai
+
+if [ ! -z "$theme" ] ; then
+	cp /usr/share/pixmaps/$theme-syslinux.png $tftpdir/debian-edu/debian-edu-fai.png
+fi
+
+# Generate/modify the iPXE menu file
+# generate ipxe menu on a plain main server for PXE installations
+cp /usr/lib/ipxe/undionly.kpxe "${tftpdir}/debian-edu-fai/"
+cp /usr/lib/ipxe/snponly.efi "${tftpdir}/debian-edu-fai/"
+cp /boot/memtest86+.bin "${tftpdir}/debian-edu-fai/"
+echo "Generating ${tftpdir}/debian-edu-fai/debian-edu-fai.ipxe"
+cat <<EOF > "${tftpdir}/debian-edu-fai/debian-edu-fai.ipxe"
+#!ipxe
+#
+# Configure iPXE for network installations
+
+# Set the default image (img) based on arch, or to root-path if it's not empty
+#cpuid --ext 29 && set img amd64+${codename} || set img i386+${codename}
+
+# choose default boot entry (via configurable variables, see /etc/debian-edu/faiinstall.conf)
+set img ${default_arch}+${default_codename}
+
+goto start
+
+:start
+# To completely hide the menu, set menu-timeout to -1
+isset \${menu-timeout} || set menu-timeout 5000
+iseq "\${menu-timeout}" "-1" && goto \${img} ||
+menu Debian Edu iPXE boot menu || goto \${img}
+item
+item --gap                        Debian Edu installation:
+$(cat ${menuitems})
+item
+item --gap                        Other options:
+item --key m memtest              Memory test
+item --key c config               Enter iPXE configuration
+item --key s shell                Drop to iPXE shell
+item --key d disk                 Boot from the first local disk
+item
+item --key x exit                 Exit iPXE and continue BIOS boot
+choose --timeout \${menu-timeout} --default \${img} img || goto cancel
+goto \${img}
+
+:memtest
+iseq \${platform} pcbios && kernel memtest86+.bin || kernel memtest.efi
+# Boot "fails" on normal memtest exit with Esc, so show the menu again
+boot ||
+goto start
+
+:config
+config
+goto start
+
+:shell
+echo Type 'exit' to get the back to the menu
+shell
+goto start
+
+:disk
+# Boot the first local HDD
+sanboot --no-describe --drive 0x80 || goto failed
+
+:exit
+exit 1
+
+:cancel
+echo You cancelled the menu, dropping to a shell
+goto shell
+
+:failed
+echo Booting failed, dropping to a shell
+goto shell
+EOF
+
+cat $menufile >> "${tftpdir}/debian-edu-fai/debian-edu-fai.ipxe"
