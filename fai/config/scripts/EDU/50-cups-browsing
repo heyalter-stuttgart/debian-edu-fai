@@ -1,11 +1,11 @@
 #! /bin/bash
 
 # for some future cases, where BrowseRemoteProtocols is not set in cups-browsed.conf explicitly
-ainsl etc/cups/cups-browsed.conf "BrowseRemoteProtocols none" "^BrowseRemoteProtocols\s+.*"
+ainsl /etc/cups/cups-browsed-debian-edu.conf "BrowseRemoteProtocols none" "^BrowseRemoteProtocols\s+.*"
 
 # recent cups-browsed.conf files, have BrowseRemoteProtocols set to "dnssd cups", so let's change that
-sed -r -i $target/etc/cups/cups-browsed.conf -e "s/^BrowseRemoteProtocols\s+.*/BrowseRemoteProtocols none/"
+sed -r -i $target/etc/cups/cups-browsed-debian-edu.conf -e "s/^BrowseRemoteProtocols\s+.*/BrowseRemoteProtocols none/"
 
-ainsl etc/cups/cups-browsed.conf "BrowseLocalProtocols none" "^BrowseLocalProtocols\s+.*"
-ainsl etc/cups/cups-browsed.conf "LocalQueueNamingRemoteCUPS RemoteName" "^LocalQueueNamingRemoteCUPS\s+.*"
-ainsl etc/cups/cups-browsed.conf "BrowsePoll ipp.intern" "^BrowsePoll\s+.*"
+ainsl /etc/cups/cups-browsed-debian-edu.conf "BrowseLocalProtocols none" "^BrowseLocalProtocols\s+.*"
+ainsl /etc/cups/cups-browsed-debian-edu.conf "LocalQueueNamingRemoteCUPS RemoteName" "^LocalQueueNamingRemoteCUPS\s+.*"
+ainsl /etc/cups/cups-browsed-debian-edu.conf "BrowsePoll ipp.intern" "^BrowsePoll\s+.*"
