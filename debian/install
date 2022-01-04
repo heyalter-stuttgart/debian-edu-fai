@@ -1,1 +1,4 @@
+conf/debian-edu/faiinstall.conf /etc/debian-edu/
+conf/debian-edu/fai/ /etc/debian-edu/
+conf/exports.d/debian-edu-fai.exports /usr/share/debian-edu-fai/exports.d/
 fai/config /usr/share/debian-edu-fai/fai/
