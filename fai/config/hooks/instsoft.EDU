@@ -30,7 +30,7 @@ fi
 # important for downloads triggered by some non-free packages (e.g.
 # ttf-mscorefonts-installier)
 sed -i $target/etc/wgetrc \
-    -e "s@^#http_proxy.*=.*@http_proxy = http://faiserver:3128@" \
-    -e "s@^#https_proxy.*=.*@https_proxy = http://faiserver:3128@" \
-    -e "s@^#ftp_proxy.*=.*@ftp_proxy = http://faiserver:3128@" \
+    -e "s@^#http_proxy.*=.*@http_proxy = http://webcache:3128@" \
+    -e "s@^#https_proxy.*=.*@https_proxy = http://webcache:3128@" \
+    -e "s@^#ftp_proxy.*=.*@ftp_proxy = http://webcache:3128@" \
     ${NULL}
