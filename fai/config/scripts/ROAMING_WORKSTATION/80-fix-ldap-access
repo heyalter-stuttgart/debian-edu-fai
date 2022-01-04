@@ -10,7 +10,7 @@ HOST tjener.intern
 sudoers_base ou=sudoers,dc=skole,dc=skolelinux,dc=no
 BASE dc=skole,dc=skolelinux,dc=no
 TLS_REQCERT demand
-TLS_CACERT /etc/ssl/certs/debian-edu-server.crt
+TLS_CACERT /etc/ssl/certs/Debian-Edu_rootCA.crt
 EOF
 
     # this should give roaming workstations access to TJENER's LDAP,
