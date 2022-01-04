@@ -19,4 +19,8 @@ if [ -e /var/lib/fai/config/class/ITZKS_CUSTOMER.var ]; then
 
 	fi
 
+else
+
+	rm -f "$target/etc/NetworkManager/system-connections/SSID.in"
+
 fi
