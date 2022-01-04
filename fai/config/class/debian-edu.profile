@@ -44,6 +44,14 @@ Short: Debian Edu roaming workstation with Gnome desktop will be installed
 Long: Debian Edu roaming workstation with Gnome desktop will be installed.
 Classes: INSTALL FAIBASE DEBIAN DEBIAN_11 EDU ROAMING_WORKSTATION XORG GNOME LVM LVM_EDU_ROAMING NONFREE NONFREE_11
 
+Name: Debian Edu Minimal
+Description: Minimal Debian Edu installation via FAI
+Short: Installs a Debian Edu client system, text console only
+Long: Installs a Debian Edu client system, text console only.
+Use this installation profile for server-like systems that do not
+need a graphical login.
+Classes: INSTALL FAIBASE DEBIAN DEBIAN_11 EDU MINIMAL LVM LVM_EDU_MINIMAL NONFREE NONFREE_11
+
 Name: Inventory
 Description: Show hardware info
 Short: Show some basic hardware infos
