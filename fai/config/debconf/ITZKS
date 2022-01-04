@@ -2,4 +2,3 @@
 # OCS Inventory Agent, common ITZkS settings
 ocsinventory-agent ocsinventory-agent/method select http
 ocsinventory-agent ocsinventory-agent/server string inventory.it-zukunft-schule.de
-
