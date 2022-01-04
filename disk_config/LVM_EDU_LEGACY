@@ -6,5 +6,5 @@ disk_config lvm
 vg  vg_system  disk1.5
 vg_system-root   /      2G-4G     ext4  errors=remount-ro
 vg_system-swap_1 swap   RAM:150%  swap  sw
-vg_system-usr    /usr   24G-30G   ext4  defaults
-vg_system-var    /var   8G-70%    ext4  defaults
+vg_system-usr    /usr   28G-36G   ext4  defaults
+vg_system-var    /var   8G-10G    ext4  defaults
