@@ -15,7 +15,7 @@ nslcd	nslcd/ldap-base	string	dc=skole,dc=skolelinux,dc=no
 nslcd	nslcd/ldap-uris	string	ldap://ldap
 nslcd	nslcd/ldap-starttls boolean true
 nslcd	nslcd/ldap-reqcert string demand
-nslcd   nslcd/ldap-cacertfile string /etc/ssl/certs/debian-edu-server.crt
+nslcd   nslcd/ldap-cacertfile string /etc/ssl/certs/ca-certificates.crt
 
 # Update hostname from DNS
 debian-edu-config debian-edu-config/update-hostname boolean true
