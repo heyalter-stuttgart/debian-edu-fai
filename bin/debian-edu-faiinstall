@@ -312,8 +312,8 @@ fi
 cp /usr/lib/ipxe/undionly.kpxe "${tftpdir}/debian-edu-fai/"
 cp /usr/lib/ipxe/snponly.efi "${tftpdir}/debian-edu-fai/"
 cp /boot/memtest86+.bin "${tftpdir}/debian-edu-fai/"
-echo "Generating ${tftpdir}/debian-edu-fai/debian-edu-fai.ipxe"
-cat <<EOF > "${tftpdir}/debian-edu-fai/debian-edu-fai.ipxe"
+echo "Generating ${tftpdir}/debian-edu-fai/ltsp.ipxe"
+cat <<EOF > "${tftpdir}/debian-edu-fai/ltsp.ipxe"
 #!ipxe
 #
 # Configure iPXE for network installations
@@ -376,4 +376,6 @@ echo Booting failed, dropping to a shell
 goto shell
 EOF
 
-cat $menufile >> "${tftpdir}/debian-edu-fai/debian-edu-fai.ipxe"
+cat $menufile >> "${tftpdir}/debian-edu-fai/ltsp.ipxe"
+
+ln -sf ltsp.ipxe "${tftpdir}/debian-edu-fai/debian-edu-fai.ipxe"
