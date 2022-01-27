@@ -88,7 +88,26 @@ if [ -f /etc/debian-edu/faiinstall.conf ] ; then
 	. /etc/debian-edu/faiinstall.conf
 fi
 
-mkdir -p "${tftpdir}/debian-edu-fai/"
+# keep a copy of /srv/tftp/ltsp if this is the first attempt to deploy
+# debian-edu-fai on this system
+if [ ! -h "${tftpdir}/debian-edu-fai" ]; then
+	mv "${tftpdir}/ltsp" "${tftpdir}/ltsp.moved-aside-by-debian-edu-fai"
+fi
+
+# For Debian Edu, we will create the FAI tftp boot dir in subfolder ltsp/.
+mkdir -p "${tftpdir}/ltsp/"
+# and symlink that to what really is inside...
+ln -nsf "ltsp" "${tftpdir}/debian-edu-fai"
+
+# Start from a clean state after any configuration changes have been made.
+rm -f $tftpdir/ltsp/fai-installers.cfg.~
+rm -f $tftpdir/ltsp/fai-menuitems.cfg.~
+rm -f $tftpdir/ltsp/debian-edu-fai.ipxe
+rm -f $tftpdir/ltsp/ltsp.ipxe
+rm -f $tftpdir/ltsp/memtest*
+rm -f $tftpdir/ltsp/snponly.efi
+rm -f $tftpdir/ltsp/undionly.kpxe
+
 # prepare menufile creation (always start fresh)
 menuitems=${tftpdir}/debian-edu-fai/fai-menuitems.cfg
 menuindex=1
@@ -286,16 +305,6 @@ done
 ###
 ### TFTP / iPXE Setup
 ###
-
-# Start from a clean state after any configuration changes have been made.
-if [ -d $tftpdir/debian-edu-fai ] ; then
-	rm -f $tftpdir/debian-edu-fai/debian-edu-fai.png
-	rm -f $tftpdir/debian-edu-fai/fai-install.cfg
-	rm -f $tftpdir/debian-edu-fai/debian-edu-fai.ipxe
-fi
-
-[ -d $tftpdir ] || mkdir $tftpdir
-[ -d $tftpdir/debian-edu-fai ] || mkdir $tftpdir/debian-edu-fai
 
 if [ ! -z "$theme" ] ; then
 	cp /usr/share/pixmaps/$theme-syslinux.png $tftpdir/debian-edu/debian-edu-fai.png
