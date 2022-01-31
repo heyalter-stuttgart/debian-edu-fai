@@ -4,13 +4,13 @@ Source: <https://wiki.debian.org/DebianEdu>
 
 Files: *
 Copyright: 2011-2018, Thomas Lange
-  2019, Mike Gabriel <mike.gabriel@das-netzwerkteam.de>
+  2019-2022, Mike Gabriel <mike.gabriel@das-netzwerkteam.de>
 License: GPL-3.0+
 Comment:
  Except classes provided by FAI (cf. fai-doc package).
 
 Files: debian/*
-Copyright: 2019, Mike Gabriel <mike.gabriel@das-netzwerkteam.de>
+Copyright: 2019-2022, Mike Gabriel <mike.gabriel@das-netzwerkteam.de>
 License: GPL-3.0+
 
 License: GPL-3.0+
