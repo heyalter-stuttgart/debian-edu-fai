@@ -1,0 +1,181 @@
+2022-01-31 Mike Gabriel
+
+        * release 2022.01.31.1 (HEAD -> master, tag: 2022.01.31.1)
+        * debian/control: Move from R: to D: adduser, fai-server, ipxe.
+          (0a93d80)
+        * fai/config/files/etc/security/group.conf/: Use same group.conf for
+          the WORKSTATION and ROAMING_WORKSTATION class. Duplicate
+          that file. (261bf68)
+        * debian/copyright: Update copyright attributions. (a6c6052)
+        * debian/control: Bump Standards-Version: to 4.6.0, bump DH compat
+          level to version 13. (5c225f1)
+        * debian/control: Add D: adduser. (1c494d3)
+        * debian/{postinst,postrm}: Create 'fai' system account during
+          pkg:postinst. (9f7b2c5)
+        * debian/install: Adjust DH install. (a758a5b)
+        * README.md: Initial version of a short README explaining how to set
+          up debian-edu-fai. (5f28a6c)
+
+2022-01-27 Mike Gabriel
+
+        * bin/debian-edu-faiinstall: Create .ipxe file as ltsp.ipxe first,
+          then create a symlink 'debian-edu-fai.ipxe' to reflect
+          that this is not LTSP but FAI. (1598c14)
+        * bin/debian-edu-faiinstall: Adjust installation of TFTP
+          configuration files. Place files into /srv/tftp/ltsp to
+          match Debian Edu 11 LDAP/DHCP settings. (d6a9338)
+
+2022-01-11 Mike Gabriel
+
+        * fai/config/files/etc/security/: Ship PAM group.conf for WORKSTATION
+          class. LDAP users should be members of several system
+          groups on networked WORKSTATIONs. (929a850)
+        * fai/config/class: Rename debian-edu.profile and start the filename
+          with z<nn>_... Also split out FAI Inventory and FAI
+          Sysinfo. (cc852d6)
+
+2022-01-06 Mike Gabriel
+
+        * fai/config/debconf/EDU: Stop using debian-edu-server.crt as
+          ldap-cacertfile, use ca-certificates.crt instead.
+          (648e9c5)
+
+2022-01-04 Mike Gabriel
+
+        * contrib/tftp: Drop syslinux based tftp example files, not required
+          anymore. (0036d0f)
+        * disk_config/LVM_EDU*_LEGACY: Drop LEGACY partition layouts. Not
+          needed anymore. (f16f4e0)
+        * class/debian-edu.profile: Fine-tune debian-edu.profile so that it
+          fits into the FAI menu dialog box. (2c973f1)
+        * class/debian-edu.profile: Rewrite profiles, drop BIOS legacy
+          profiles (now covered by GPT partition table layouts that
+          can handle UEFI and BIOS installations). (a04a02f)
+        * class/debian-edu.profile: Add 'Debian Edu Minimal' installation
+          profile. (634974c)
+        * disk_config/: Add LVM_EDU_MINIMAL partition layout. (c41416b)
+        * .gitignore: Add file. Hide FAIBASE.var.in file. (c125885)
+        * fai/config/scripts/ROAMING_WORKSTATION/80-fix-ldap-access: Use
+          Debian Edu's rootCA certificat for connecting to LDAP.
+          (4e1a72f)
+        * scripts/*WORKSTATION/10-update-debian-edu-config: Add FIXME
+          comment. Needs more investigation. (446b82a)
+        * scripts/EDU/98-drop-fai-aptproxy: Drop script. It is actually quite
+          recommendable keeping the FAI proxy (it might be optimized
+          for APT package downloading). (fc58f10)
+        * scripts/EDU/50-cups-browsing: Adapted to Debian Edu 11, modify
+          cups-browsed-debian-edu.conf instead of cups-browsed.conf.
+          (35f00a5)
+        * hooks/instsoft.EDU: Use http://webcache:3128 for pulling in MS core
+          fonts. (76cfdd1)
+        * disk_config/: Enlarge /usr, limit /var to max. 10G for LVM profiles
+          without /home. (7426973)
+        * Debian Edu profiles: Add support for 'Minimal' installation
+          profile. (730836a)
+        * disk_config/: Add LVM_EDU_TABLET_LEGACY, for tablets with BIOS.
+          (43bf6ac)
+        * debian/install: Install debian-edu-faiinstall into DEB package.
+          (d41bfe6)
+        * debian/install: Install new config files in DEB package. (b2befe3)
+        * conf/exports.d/debian-edu-fai.exports: Provide NFS configuration
+          for debian-edu-fai. (1495092)
+        * debian/control: Add R: qemu-user-static. (bdeec4b)
+        * conf/debian-edu/fai/debian-edu-fai.TEMPLATE/: Add nfsroot conf
+          template for debian-edu-fai(install). (d3d3a83)
+        * conf/debian-edu/faiinstall.conf: Mostly commented out (default)
+          config for debian-edu-faiinstall script. (5f46640)
+        * bin/debian-edu-faiinstall: Script for fully automatically deploying
+          multiple FAI installer nfsroots on the local school
+          network. (f370c80)
+
+2021-12-23 Mike Gabriel
+
+        * debian/control: Move ipxe and fai-server into Recommends: field.
+          (56c2ed5)
+        * fai/config/class/FAIBASE.var.in: Turn file into a configurable
+          template file that will/can be populated via
+          'debian-edu-faiinstall' script. (25936eb)
+
+2021-11-01 Mike Gabriel
+
+        * contrib/tftp: Add tftpd configuration. (11a6a0e)
+
+2021-09-06 Mike Gabriel
+
+        * Debian 11 is stable now, get ready for Debian 12. (8a51fbd)
+        * fai/config/scripts/EDU/40-cfengine-debian-edu-postinstall: Fix
+          cf-agent run, the absolute path to the executable has
+          changed in Debian 11 (/usr/sbin/ -> /usr/bin/). (17825b3)
+
+2020-10-06 Mike Gabriel
+
+        * fai/config/files/etc/apt/sources.list.d/debian-*.list/NONFREE_11:
+          Comment out fai-mirror repos. (71cc935)
+        * fai/config/class/debian-edu.profile: Make
+          Edu+Roaming-EFI-Workstation/MATE the default profile.
+          (daae1a7)
+        * fai/config/debconf/DEBIAN: Re-enable grub-pc seed. (82e8fe0)
+        * Get ready for Debian 11. (347a0fb)
+        * fai/config/class/debian-edu.profile: Support BIOS legacy partition
+          tables (and offer them via FAI installation menu for MATE
+          workstations). (5e4fbe3)
+        * fai/config/scripts/LAST/90-show-network-cards: Show hostname in
+          network card summary at end-of-installation. (5978f36)
+
+2020-07-08 Mike Gabriel
+
+        * files/etc/apt/sources.list.d/fai-mirror*.list: Add support for
+          local FAI mirror. (530c2f2)
+        * scripts/LAST/90-show-network-cards: Script that shows network cards
+          (and their MACs at end-of-installation). (49bc5ba)
+        * disk_config/: Add LVM_EDU_TABLET disk config. (e9b885d)
+        * config/disk_config/: Switch to GPT partition tables (supporting EFI
+          and legacy grub install). (23d8526)
+        * disk_config/LVM_EDU_ROAMING: Add disk config for optimized for
+          roaming workstations. (4f34231)
+        * class/50-host-classes: Don't set too many default classes. This
+          needs to be handled by kernel cmdline or FAI profiles.
+          (470124c)
+        * debconf/DEBIAN: Comment out grub-pc pre-seeding. This needs to be
+          more device specific. (b230e1c)
+        * debconf/EDU: Don't default to LightDM. This is desktop env
+          dependent. (8bdbd93)
+        * config/scripts/EDU/99-proxy-from-wpad: Don't fail, if offline.
+          (bbb5dca)
+        * Better EFI bootloader support. (31a0ac7)
+        * rebase GNOME (f1c4e14)
+        * package_config/DEBIAN: Add non-free pkg firmware-intel-sound.
+          (bd5fffb)
+        * rebase DEBIAN10+11 (96ac203)
+        * class/debian-edu.profile: Target DEBIAN_10 for now. (1af7fde)
+        * Try to update client's time via ntp.intern (aka TJENER). Help's if
+          the clock is askew. (3a1d749)
+        * class/debian-edu.profile: Drop untested Xfce variant for now.
+          (2eb114c)
+        * Add ROAMING_WORKSTATION support. (dfca928)
+        * files/etc/apt/sources.list/DEBIAN_10 (77349f4)
+        * fai/config/class/FAIBASE.var: Set LOGUSER and LOGSERVER. (4245740)
+        * fai/config/debconf/GNOME: Enforce LightDM as DM with MATE desktop
+          installs. (0b146f2)
+        * fai/config/debconf/GNOME: Enforce gdm3 as DM with GNOME desktop
+          installs. (acd57a3)
+        * Add support for Debian 11 (aka bullseye). (71ba935)
+
+2019-11-08 Mike Gabriel
+
+        * fai/config/scripts/EDU/50-cups-browsing: remove debugging code
+          (fc718fa)
+        * fai/config/scripts/EDU/50-cups-browsing: Force Edu clients to
+          minimal CUPS browsing, in order to keep print dialogs
+          clean and slim. (See: #944347). (76704de)
+
+2019-10-03 Mike Gabriel
+
+        * FAI config: well-tested Debian Edu 10 minimal + MATE workstation
+          installation (f48ca15)
+
+2019-09-19 Mike Gabriel
+
+        * debian/: Wrap up debian-edu-fai package. (8525a66)
+        * initial draft of getting FAI install a Debian Edu system (profile:
+          Minimal) (6ecb19a)
