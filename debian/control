@@ -12,12 +12,12 @@ Vcs-Git: https://salsa.debian.org/debian-edu/debian-edu-fai.git
 Package: debian-edu-fai
 Architecture: all
 Multi-Arch: foreign
-Depends: ${misc:Depends},
+Depends: adduser,
+         fai-server,
+         ipxe,
+         ${misc:Depends},
          ${perl:Depends},
-Recommends: adduser,
-            fai-server,
-            ipxe,
-            qemu-user-static,
+Recommends: qemu-user-static,
 Description: FAI config space for setting up Debian Edu workstations
  The Debian Edu project provides Debian based systems customized for
  schools and other education facilities.
