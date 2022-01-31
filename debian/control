@@ -14,8 +14,9 @@ Architecture: all
 Multi-Arch: foreign
 Depends: ${misc:Depends},
          ${perl:Depends},
-Recommends: ipxe,
+Recommends: adduser,
             fai-server,
+            ipxe,
             qemu-user-static,
 Description: FAI config space for setting up Debian Edu workstations
  The Debian Edu project provides Debian based systems customized for
