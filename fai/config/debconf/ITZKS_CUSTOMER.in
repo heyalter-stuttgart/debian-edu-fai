@@ -1,6 +1,6 @@
 
 # ITZkS Customer 
-itzks-systems-common itzks-systems-common/customer-name select @SKOLE@
+itzks-systems-common itzks-systems-common/customer-name select @school_tag@
 
 # OCS Inventory Agent
-ocsinventory-agent ocsinventory-agent/tag string @SKOLE@
+ocsinventory-agent ocsinventory-agent/tag string @school_tag@
