@@ -90,8 +90,10 @@ fi
 
 # keep a copy of /srv/tftp/ltsp if this is the first attempt to deploy
 # debian-edu-fai on this system
-if [ ! -h "${tftpdir}/debian-edu-fai" ]; then
+if [ -d "${tftpdir}/debian-edu-fai" ]; then
 	mv "${tftpdir}/ltsp" "${tftpdir}/ltsp.moved-aside-by-debian-edu-fai"
+elif [ ! -h "${tftpdir}/debian-edu-fai" ]; then
+	rm "${tftpdir}/debian-edu-fai"
 fi
 
 # For Debian Edu, we will create the FAI tftp boot dir in subfolder ltsp/.
