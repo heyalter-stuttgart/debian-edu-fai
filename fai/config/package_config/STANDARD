@@ -21,8 +21,8 @@ netcat-traditional
 openssh-client
 pciutils
 perl
-python
-python-minimal
+python3
+python3-minimal
 reportbug
 telnet
 traceroute
