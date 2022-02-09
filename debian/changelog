@@ -1,3 +1,15 @@
+debian-edu-fai (2022.02.09.1) unstable; urgency=medium
+
+  * bin/debian-edu-faiinstall:
+    - Fix script failure if /srv/tftp/ltsp does not exist.
+    - Obviously 'test -d' is true for symlinks that point to a directory. In
+      that case, we need to be more precise.
+    - Fix school_tag (for those, who use it)
+  * fai/config/package_config/STANDARD:
+    - python{,-minimal} are virtual, let's use python3{,-minimal} instead.
+
+ -- Mike Gabriel <sunweaver@debian.org>  Wed, 09 Feb 2022 20:45:21 +0100
+
 debian-edu-fai (2022.01.31.1) unstable; urgency=medium
 
   * Initial release to Debian. (Closes: #1004675).

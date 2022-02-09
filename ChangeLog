@@ -1,6 +1,22 @@
+2022-02-09 Mike Gabriel
+
+        * release 2022.02.09.1 (HEAD -> master, tag: 2022.02.09.1)
+        * fai/config/package_config/STANDARD: python{,-minimal} are virtual,
+          let's use python3{,-minimal} instead. (a97eaac)
+        * bin/debian-edu-faiinstall: Fix school_tag here, too. (6745dee)
+        * bin/debian-edu-faiinstall: Obviously 'test -d' is true for symlinks
+          that point to a directory. In that case, we need to be
+          more precise. (351eef6)
+
+2022-02-04 Mike Gabriel
+
+        * bin/debian-edu-faiinstall: Typo fix for previous commit. (21ed767)
+        * bin/debian-edu-faiinstall: Fix script failure if /srv/tftp/ltsp
+          does not exist. (5618ae0)
+
 2022-01-31 Mike Gabriel
 
-        * release 2022.01.31.1 (HEAD -> master, tag: 2022.01.31.1)
+        * release 2022.01.31.1 (76f787b) (tag: debian/2022.01.31.1)
         * debian/control: Move from R: to D: adduser, fai-server, ipxe.
           (0a93d80)
         * fai/config/files/etc/security/group.conf/: Use same group.conf for
