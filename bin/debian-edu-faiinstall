@@ -224,7 +224,7 @@ for codename in ${codenames}; do
 			[ "$wifi_passphrase" ]    && export wifi_passphrase && perl -p -e "s/^(#|)wifi_passphrase=.{0,1}\@wifi_passphrase\@.{0,1}\s*\$/wifi_passphrase=\'\$ENV{wifi_passphrase}\'\n/g" "${file_to_adapt%.in}" > "${file_to_adapt%.in}.new" && mv "${file_to_adapt%.in}.new" "${file_to_adapt%.in}"
 			[ "$fai_logserver" ]      && export fai_logserver   && perl -p -e "s/^(#|)LOGSERVER=.{0,1}\@fai_logserver\@.{0,1}\s*\$/LOGSERVER=\'\$ENV{fai_logserver}\'\n/g" "${file_to_adapt%.in}" > "${file_to_adapt%.in}.new"         && mv "${file_to_adapt%.in}.new" "${file_to_adapt%.in}"
 			[ "$fai_loguser" ]        && export fai_loguser     && perl -p -e "s/^(#|)LOGUSER=.{0,1}\@fai_loguser\@.{0,1}\s*\$/LOGUSER=\'\$ENV{fai_loguser}\'\n/g" "${file_to_adapt%.in}" > "${file_to_adapt%.in}.new"                 && mv "${file_to_adapt%.in}.new" "${file_to_adapt%.in}"
-			[ "$school_tag" ]         && export school_tag      && perl -p -e "s/\@SKOLE\@/\$ENV{school_tag}/g" "${file_to_adapt%.in}" > "${file_to_adapt%.in}.new" && mv "${file_to_adapt%.in}.new" "${file_to_adapt%.in}"
+			[ "$school_tag" ]         && export school_tag      && perl -p -e "s/\@school_tag\@/\$ENV{school_tag}/g" "${file_to_adapt%.in}" > "${file_to_adapt%.in}.new" && mv "${file_to_adapt%.in}.new" "${file_to_adapt%.in}"
 
 			chown root:root ${file_to_adapt}
 			chmod 0600 ${file_to_adapt}
