@@ -1,3 +1,17 @@
+debian-edu-fai+itzks (2022.02.09.1) unstable; urgency=medium
+
+  * fai/config/debconf/ITZKS_CUSTOMER.in:
+    - Fix template, use @school_tag@, not @SKOLE@.
+  * bin/debian-edu-faiinstall:
+    - Fix script failure if /srv/tftp/ltsp does not exist.
+    - Obviously 'test -d' is true for symlinks that point to a directory. In
+      that case, we need to be more precise.
+    - Fix school_tag here, too.
+  * fai/config/package_config/STANDARD:
+    - python{,-minimal} are virtual, let's use python3{,-minimal} instead.
+
+ -- Mike Gabriel <sunweaver@debian.org>  Wed, 09 Feb 2022 20:53:35 +0100
+
 debian-edu-fai+itzks (2022.01.31.1) unstable; urgency=medium
 
   * Initial release to ITZkS DEB archive.

@@ -1,7 +1,25 @@
+2022-02-09 Mike Gabriel
+
+        * release itzks/2022.02.09.1 (HEAD -> itzks, tag:
+          itzks/2022.02.09.1)
+        * fai/config/package_config/STANDARD: python{,-minimal} are virtual,
+          let's use python3{,-minimal} instead. (3187874)
+        * bin/debian-edu-faiinstall: Fix school_tag here, too. (4701212)
+        * bin/debian-edu-faiinstall: Obviously 'test -d' is true for symlinks
+          that point to a directory. In that case, we need to be
+          more precise. (f685bf9)
+
+2022-02-04 Mike Gabriel
+
+        * bin/debian-edu-faiinstall: Typo fix for previous commit. (86a2635)
+        * bin/debian-edu-faiinstall: Fix script failure if /srv/tftp/ltsp
+          does not exist. (cdae592)
+        * fai/config/debconf/ITZKS_CUSTOMER.in: Fix template, use
+          @school_tag@, not @SKOLE@. (185182c)
+
 2022-01-31 Mike Gabriel
 
-        * release itzks/2022.01.31.1 (HEAD -> itzks, tag:
-          itzks/2022.01.31.1)
+        * release itzks/2022.01.31.1 (d5de348) (tag: itzks/2022.01.31.1)
         * debian/: Rename src:pkg and bin:pkg for ITZkS project. (7732490)
         * debian/control: Move from R: to D: adduser, fai-server, ipxe.
           (97058e1)
