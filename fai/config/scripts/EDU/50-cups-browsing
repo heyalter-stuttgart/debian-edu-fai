@@ -6,12 +6,6 @@ ainsl /etc/cups/cups-browsed-debian-edu.conf "BrowseRemoteProtocols none" "^Brow
 # recent cups-browsed.conf files, have BrowseRemoteProtocols set to "dnssd cups", so let's change that
 sed -r -i $target/etc/cups/cups-browsed-debian-edu.conf -e "s/^BrowseRemoteProtocols\s+.*/BrowseRemoteProtocols none/"
 
-# for cases where CreateRemoteCUPSPrinterQueues is not set in cups-browsed.conf explicitly
-ainsl /etc/cups/cups-browsed-debian-edu.conf "CreateRemoteCUPSPrinterQueues Yes" "^CreateRemoteCUPSPrinterQueues\s+.*"
-
-# recent cups-browsed.conf files, have CreateRemoteCUPSPrinterQueues set to "No", but it should be "Yes"
-sed -r -i $target/etc/cups/cups-browsed-debian-edu.conf -e "s/^CreateRemoteCUPSPrinterQueues\s+.*/CreateRemoteCUPSPrinterQueues Yes/"
-
 ainsl /etc/cups/cups-browsed-debian-edu.conf "BrowseLocalProtocols none" "^BrowseLocalProtocols\s+.*"
 ainsl /etc/cups/cups-browsed-debian-edu.conf "LocalQueueNamingRemoteCUPS RemoteName" "^LocalQueueNamingRemoteCUPS\s+.*"
 ainsl /etc/cups/cups-browsed-debian-edu.conf "BrowsePoll ipp.intern" "^BrowsePoll\s+.*"
