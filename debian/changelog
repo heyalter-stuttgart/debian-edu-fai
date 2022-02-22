@@ -1,3 +1,17 @@
+debian-edu-fai (2022.02.22.1) unstable; urgency=medium
+
+  * fai/config/basefiles/mk-basefile:
+    + Drop file. Not needed here.
+  * fai/config/scripts/EDU/50-cups-browsing:
+    + Assure that CreateRemoteCUPSPrinterQueues is set to 'Yes'.
+  * fai/config/class/{10-*,20-*}:
+    + Update from upstream FAI config space.
+  * debian/postinst:
+    + Fix add user call, add user account name (which was obviously missing).
+      (This resolves the current piuparts test failure).
+
+ -- Mike Gabriel <sunweaver@debian.org>  Tue, 22 Feb 2022 21:40:11 +0100
+
 debian-edu-fai (2022.02.09.1) unstable; urgency=medium
 
   * bin/debian-edu-faiinstall:
