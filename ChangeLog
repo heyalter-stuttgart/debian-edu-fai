@@ -1,7 +1,29 @@
+2022-02-22 Mike Gabriel
+
+        * release itzks/2022.02.22.1 (HEAD -> itzks, tag:
+          itzks/2022.02.22.1)
+        * debian/postinst: Fix add user call, add user account name (which
+          was obviously missing). (a862d5d)
+
+2022-02-15 Mike Gabriel
+
+        * fai/config/class/{10-*,20-*}: Update from upstream FAI config
+          space. (0ad2003)
+        * fai/config/scripts/EDU/50-cups-browsing: Assure that
+          CreateRemoteCUPSPrinterQueues is set to 'Yes'. (27af8e0)
+        * Revert "fai/config/scripts/EDU/50-cups-browsing: Assure that
+          CreateRemoteCUPSPrinterQueues is set to 'Yes'." (31aa653)
+        * fai/config/scripts/EDU/50-cups-browsing: Assure that
+          CreateRemoteCUPSPrinterQueues is set to 'Yes'. (bc8ed60)
+
+2022-02-10 Mike Gabriel
+
+        * fai/config/basefiles/mk-basefile: Drop file. Not needed here.
+          (aec76db)
+
 2022-02-09 Mike Gabriel
 
-        * release itzks/2022.02.09.1 (HEAD -> itzks, tag:
-          itzks/2022.02.09.1)
+        * release itzks/2022.02.09.1 (b5afade) (tag: itzks/2022.02.09.1)
         * fai/config/package_config/STANDARD: python{,-minimal} are virtual,
           let's use python3{,-minimal} instead. (3187874)
         * bin/debian-edu-faiinstall: Fix school_tag here, too. (4701212)
