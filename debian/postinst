@@ -26,7 +26,7 @@ case "${1}" in
 		if ! getent 'passwd' 'fai' >'/dev/null'; then
 			echo 'Creating fai system user.' >&2
 			adduser --system --home /var/log/fai/client-logs \
-			        --disabled-password --shell /bin/bash
+			        --disabled-password --shell /bin/bash fai
 		fi
 		;;
 	'abort-upgrade'|'abort-remove'|'abort-deconfigure')
