@@ -62,8 +62,6 @@ fi
 [ "$wifi_essid" ]       || wifi_essid=""
 [ "$wifi_passphrase" ]  || wifi_passphrase=""
 [ "$tftpdir" ]          || tftpdir="/srv/tftp"
-[ "$wifi_essid" ]       || wifi_essid=""
-[ "$wifi_passphrase" ]  || wifi_passphrase=""
 [ "$fai_logserver" ]    || unset fai_logserver
 [ "$fai_loguser" ]      || unset fai_loguser
 [ "$school_tag" ]       || school_tag="SKOLE"
