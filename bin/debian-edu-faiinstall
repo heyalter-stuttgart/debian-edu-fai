@@ -84,8 +84,8 @@ fi
 
 # source debian-edu-fai's config file
 # Allow site specific overrides to the variables
-if [ -f /etc/debian-edu/faiinstall.conf ] ; then
-	. /etc/debian-edu/faiinstall.conf
+if [ -f /etc/debian-edu/debian-edu-fai.conf ] ; then
+	. /etc/debian-edu/debian-edu-fai.conf
 fi
 
 # keep a copy of /srv/tftp/ltsp if this is the first attempt to deploy
@@ -326,7 +326,7 @@ cat <<EOF > "${tftpdir}/debian-edu-fai/ltsp.ipxe"
 # Set the default image (img) based on arch, or to root-path if it's not empty
 #cpuid --ext 29 && set img amd64+${codename} || set img i386+${codename}
 
-# choose default boot entry (via configurable variables, see /etc/debian-edu/faiinstall.conf)
+# choose default boot entry (via configurable variables, see /etc/debian-edu/debian-edu-fai.conf)
 set img ${default_arch}+${default_codename}
 
 goto start
