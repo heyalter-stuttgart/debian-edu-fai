@@ -9,8 +9,8 @@ FAI_DEBOOTSTRAP="@codename@ @mirrorurl@"
 FAI_ROOTPW='@rootpw@'
 
 NFSROOT=/srv/fai/nfsroots.debian-edu-fai/@arch@+@codename@
-TFTPROOT=/srv/tftp/fai.@arch@+@codename@ # don't change this, we won't use it...
-NFSROOT_HOOKS=/etc/fai/debian-edu-fai/@arch@+@codename@/nfsroot-hooks/
+TFTPROOT=/srv/tftp/debian-edu-fai.@arch@+@codename@ # don't change this, we won't use it...
+NFSROOT_HOOKS=/etc/debian-edu/fai/debian-edu-fai.@arch@+@codename@/nfsroot-hooks/
 FAI_DEBOOTSTRAP_OPTS="--arch=@arch@"
 
 # Configuration space (should be left as is, all FAI installers should use the same config space)
