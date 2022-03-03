@@ -181,8 +181,8 @@ for codename in ${codenames}; do
 		# hard-code some sensible defaults in case they have been commented out in $faiconfig/nfsroot.conf
 		[ "$FAI_DEBOOTSTRAP" ]      || FAI_DEBOOTSTRAP="${codename} http://deb.debian.org/debian"
 		[ "$FAI_ROOTPW" ]           || FAI_ROOTPW="${rootpw}"
-		[ "$NFSROOT" ]              || NFSROOT="/srv/fai/nfsroot.${arch}+${codename}"
-		[ "$TFTPROOT" ]             || TFTPROOT="${tftpdir}/fai.${arch}+${codename}"
+		[ "$NFSROOT" ]              || NFSROOT="/srv/fai/nfsroot.debian-edu-fai/${arch}+${codename}"
+		[ "$TFTPROOT" ]             || TFTPROOT="${tftpdir}/debian-edu-fai.${arch}+${codename}"
 		[ "$NFSROOT_HOOKS" ]        || NFSROOT_HOOKS="/etc/debian-edu/fai/debian-edu-fai.${arch}+${codename}/"
 		[ "$FAI_DEBOOTSTRAP_OPTS" ] || FAI_DEBOOTSTRAP_OPTS="--arch=${arch}"
 		[ "$FAI_CONFIGDIR" ]        || FAI_CONFIGDIR="/srv/fai/config"
