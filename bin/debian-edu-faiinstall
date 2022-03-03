@@ -259,7 +259,7 @@ for codename in ${codenames}; do
 
 			fi
 
-			# Remove /srv/tftp/fai.ARCH+CODENAME after NFSROOT creation.
+			# Remove /srv/tftp/debian-edu-fai.ARCH+CODENAME after NFSROOT creation.
 			# We don't need that as we use our own iPXE boot config (instead
 			# of syslinux which is used by FAI by default).
 			if [ -d "${TFPTROOT}/" ]; then
