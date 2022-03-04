@@ -112,9 +112,6 @@ rm -f $tftpdir/ltsp/undionly.kpxe
 menuitems=${tftpdir}/debian-edu-fai/fai-menuitems.cfg
 menuindex=1
 menufile=${tftpdir}/debian-edu-fai/fai-installers.cfg
-if [ true = "${graphicdi}" ]; then
-	gtkvideo="vga=788"
-fi
 if [ -e "${menuitems}" ]; then
 	mv "${menuitems}" "${menuitems}.~"
 fi
