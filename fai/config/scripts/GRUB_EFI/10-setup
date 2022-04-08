@@ -58,6 +58,17 @@ elif [[ $BOOT_DEVICE =~ '/dev/loop' ]]; then
 	fi
 
 else
+	# Hack for the Dell Venue 8 Pro device series
+	if $ROOTCMD dmidecode | grep "Product Name:" | grep -q "Venue 8 Pro"; then
+
+		# wipe all EFI boot entries... Otherwise the dv8p's broken EFI
+		# won't boot the device...
+		$ROOTCMD efibootmgr | grep -E "^Boot[0-9]{4}.*" | sed -Ee 's/Boot([0-9]+).*/\1/' | while read bootnum; do
+			$ROOTCMD efibootmgr --delete-bootnum --bootnum $bootnum
+		done
+
+	fi
+
 	$ROOTCMD grub-install --no-floppy --modules=part_gpt "$GROOT"
 	if [ $? -eq 0 ]; then
 		echo "Grub installed on $BOOT_DEVICE = $GROOT"
