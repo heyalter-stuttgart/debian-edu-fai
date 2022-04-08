@@ -1,2 +1,2 @@
 # Keep old style (aka unpredictable) network interfaces names.
-grub-pc grub2/linux_cmdline_default string net.ifnames=0 quiet add_efi_memmap i915.fastboot=1 fbcon.rotate_all=3 splash
+grub-pc grub2/linux_cmdline_default string net.ifnames=0 quiet add_efi_memmap i915.fastboot=1 fbcon=rotate:1 splash
