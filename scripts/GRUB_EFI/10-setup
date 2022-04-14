@@ -73,6 +73,14 @@ else
 	if [ $? -eq 0 ]; then
 		echo "Grub installed on $BOOT_DEVICE = $GROOT"
 	fi
+
+	# Hack for the Dell Venue 8 Pro device series
+	if $ROOTCMD dmidecode | grep "Product Name:" | grep -q "Venue 8 Pro"; then
+
+		$ROOTCMD efibootmgr --bootnext 0000
+
+	fi
+
 fi
 $ROOTCMD update-grub
 
