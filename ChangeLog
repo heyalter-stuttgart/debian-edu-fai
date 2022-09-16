@@ -1,7 +1,45 @@
+2022-09-16 Mike Gabriel
+
+        * release 2022.04.14.1 (HEAD -> master, tag: 2022.04.14.1)
+
+2022-04-14 Mike Gabriel
+
+        * fai/config/scripts/GRUB_EFI/10-setup: Explicitly set --bootnext
+          entry to 0000 after grub-install. (489b4c4)
+
+2022-04-08 Mike Gabriel
+
+        * fai/config/scripts/GRUB_EFI/10-setup: Add EFI boot manager wipe for
+          the Dell Venue 8 Pro tablet series. (386ecab)
+        * fai/config/scripts/GRUB_EFI/10-setup: Use backquotes, make Midnight
+          Commanders shell syntax highlighter happier. (6cdbb48)
+        * fai/config/scripts/GRUB_EFI/10-setup: Use <tab> for indentations.
+          (59c2b9f)
+
+2022-03-04 Mike Gabriel
+
+        * bin/debian-edu-faiinstall: Drop unused $gtkvideo variable.
+          (b2d9c64)
+
+2022-03-03 Mike Gabriel
+
+        * bin/debian-edu-faiinstall: Adjust path in comment. (53ff609)
+        * bin/debian-edu-faiinstall: Adjust defaults for NFSROOT and TFTPROOT
+          according to debian-edu-fai.conf. (bc51c43)
+        * bin/debian-edu-faiinstall: Drop duplicate value defaults for
+          wifi_essid and wifi_passphrase. (6471b83)
+        * debian/maintscript: Rename /etc/debian-edu/faiinstall.conf to
+          /etc/debian-edu/debian-edu-fai.conf. (f171f0d)
+        * Rename faiinstall.conf to debian-edu-fai.conf. (52ea327)
+        * conf/debian-edu/fai/debian-edu-fai.TEMPLATE/nfsroot.conf.in: Adjust
+          paths of TFTPROOT and NFSROOT. More properly use our own
+          namespace. (9ef82d6)
+        * conf/debian-edu/fai/debian-edu-fai.TEMPLATE/fai.conf.in: Typo fix.
+          (d1db554)
+
 2022-02-22 Mike Gabriel
 
-        * release debian/2022.02.22.1 (HEAD -> master, tag:
-          debian/2022.02.22.1)
+        * release debian/2022.02.22.1 (b911c85) (tag: debian/2022.02.22.1)
         * debian/postinst: Fix add user call, add user account name (which
           was obviously missing). (82d6f58)
 
