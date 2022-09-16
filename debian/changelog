@@ -1,3 +1,30 @@
+debian-edu-fai+itzks (2022.04.14.1) unstable; urgency=medium
+
+  * fai/config/scripts/GRUB_EFI/10-setup:
+    - Use <tab> for indentations.
+    - Use backquotes, make Midnight Commanders shell syntax highlighter happier.
+    - Add EFI boot manager wipe for the Dell Venue 8 Pro tablet series.
+    - Explicitly set --bootnext entry to 0000 after grub-install.
+  * bin/debian-edu-faiinstall:
+    - Drop unused $gtkvideo variable.
+    - Adjust path in comment.
+    - Adjust defaults for NFSROOT and TFTPROOT according to debian-edu-fai.conf.
+    - Drop duplicate value defaults for wifi_essid and wifi_passphrase.
+  * debian/maintscript:
+    + Rename /etc/debian-edu/faiinstall.conf to /etc/debian-edu/debian-edu-fai.
+      conf.
+  * Rename faiinstall.conf to debian-edu-fai.conf.
+  * conf/debian-edu/fai/debian-edu-fai.TEMPLATE/nfsroot.conf.in:
+    - Adjust paths of TFTPROOT and NFSROOT. More properly use our own namespace.
+  * conf/debian-edu/fai/debian-edu-fai.TEMPLATE/fai.conf.in:
+    - Typo fix.
+
+  * debian/control:
+    + Bump Standards-Version: to 4.6.1. No changes needed.
+    + Bump Standards-Version: to 4.6.1. No changes needed.
+
+ -- Mike Gabriel <sunweaver@debian.org>  Fri, 16 Sep 2022 20:38:21 +0200
+
 debian-edu-fai+itzks (2022.02.22.1) unstable; urgency=medium
 
   * fai/config/basefiles/mk-basefile:
