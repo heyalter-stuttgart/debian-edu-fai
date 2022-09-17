@@ -184,6 +184,7 @@ for codename in ${codenames}; do
 		[ "$FAI_DEBOOTSTRAP_OPTS" ] || FAI_DEBOOTSTRAP_OPTS="--arch=${arch}"
 		[ "$FAI_CONFIGDIR" ]        || FAI_CONFIGDIR="/srv/fai/config"
 
+		FAI_CONFIGDIR_REAL="${FAI_CONFIGDIR}"
 		# if FAI_CONFIGDIR is a symlink, we need to find the real location...
 		if [ -h ${FAI_CONFIGDIR} ]; then
 			FAI_CONFIGDIR_REAL="$(readlink ${FAI_CONFIGDIR})"
