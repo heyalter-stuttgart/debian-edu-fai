@@ -241,7 +241,7 @@ for codename in ${codenames}; do
 
 			cp ${file_to_adapt} ${file_to_adapt%.in}
 
-			# FIXME: also comment out variables that are not set (anymore) in /etc/debian-edu/faiinstall.cfg
+			# FIXME: also comment out variables that are not set (anymore) in /etc/debian-edu/debian-edu-fai.conf
 
 			[ "$rootpw" ]             && export rootpw          && perl -p -e "s/^(#|)ROOTPW=.{0,1}\@rootpw\@.{0,1}\s*\$/ROOTPW=\'\$ENV{rootpw}\'\n/g" "${file_to_adapt%.in}" > "${file_to_adapt%.in}.new"                                     && mv "${file_to_adapt%.in}.new" "${file_to_adapt%.in}"
 			[ "$localuser" ]          && export localuser       && perl -p -e "s/^(#|)username=.{0,1}\@localuser\@.{0,1}\s*\$/username=\'\$ENV{localuser}\'\n/g" "${file_to_adapt%.in}" > "${file_to_adapt%.in}.new"                           && mv "${file_to_adapt%.in}.new" "${file_to_adapt%.in}"
