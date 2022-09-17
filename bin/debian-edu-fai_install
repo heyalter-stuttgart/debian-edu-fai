@@ -86,6 +86,9 @@ if [ -f /etc/debian-edu/debian-edu-fai.conf ] ; then
 	. /etc/debian-edu/debian-edu-fai.conf
 fi
 
+# derived from mirrorurl...
+[ "$apt_cdn" ]          || apt_cdn="$(echo "$mirrorurl" | sed -E -e 's@(.*://[^/]+)/.*@\1@g')"
+
 # keep a copy of /srv/tftp/ltsp if this is the first attempt to deploy
 # debian-edu-fai on this system
 if [ -d "${tftpdir}/debian-edu-fai" ] && [ ! -h "${tftpdir}/debian-edu-fai" ]; then
@@ -249,6 +252,7 @@ for codename in ${codenames}; do
 			[ "$fai_loguser" ]        && export fai_loguser     && perl -p -e "s/^(#|)LOGUSER=.{0,1}\@fai_loguser\@.{0,1}\s*\$/LOGUSER=\'\$ENV{fai_loguser}\'\n/g" "${file_to_adapt%.in}" > "${file_to_adapt%.in}.new"                 && mv "${file_to_adapt%.in}.new" "${file_to_adapt%.in}"
 			[ "$school_tag" ]         && export school_tag      && perl -p -e "s/\@school_tag\@/\$ENV{school_tag}/g" "${file_to_adapt%.in}" > "${file_to_adapt%.in}.new" && mv "${file_to_adapt%.in}.new" "${file_to_adapt%.in}"
 			[ "$mirrorurl" ]          && export mirrorurl       && perl -p -e "s/\@mirrorurl\@/\$ENV{mirrorurl}/g" "${file_to_adapt%.in}" > "${file_to_adapt%.in}.new" && mv "${file_to_adapt%.in}.new" "${file_to_adapt%.in}"
+			[ "$apt_cdn" ]            && export apt_cdn         && perl -p -e "s/\@apt_cdn\@/\$ENV{apt_cdn}/g" "${file_to_adapt%.in}" > "${file_to_adapt%.in}.new" && mv "${file_to_adapt%.in}.new" "${file_to_adapt%.in}"
 
 			chown root:root ${file_to_adapt}
 			chmod 0600 ${file_to_adapt}

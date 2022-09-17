@@ -1,4 +1,4 @@
-apt_cdn=$(echo '@mirrorurl@' | sed -E -e 's@(.*://[^/])(/.*)@\1@g')
+apt_cdn=@apt_cdn@
 security_cdn=http://security.debian.org
 
 CONSOLEFONT=
