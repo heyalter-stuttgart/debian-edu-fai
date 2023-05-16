@@ -18,7 +18,7 @@ set -e
 case "$1" in
 	purge)
 
-		getent passwd fai 1>/dev/null && deluser fai
+		getent passwd fai 1>/dev/null && deluser fai || true
 		rm -Rf /var/log/fai/client-logs/
 
 		;;
