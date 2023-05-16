@@ -1,3 +1,12 @@
+debian-edu-fai (2023.05.16.1) unstable; urgency=medium
+
+  * bin/debian-edu-faiinstall: Make sure FAI_CONFIGDIR_REAL is set before it
+    is accessed.
+  * debian/postrm: Ignore failures during execution of deluser/delgroup.
+    (Closes: #1035292).
+
+ -- Mike Gabriel <sunweaver@debian.org>  Tue, 16 May 2023 23:00:47 +0200
+
 debian-edu-fai (2022.04.14.1) unstable; urgency=medium
 
   * fai/config/scripts/GRUB_EFI/10-setup:

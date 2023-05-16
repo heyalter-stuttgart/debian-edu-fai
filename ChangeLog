@@ -1,6 +1,21 @@
+2023-05-16 Mike Gabriel
+
+        * release 2023.05.16.1 (HEAD -> master, tag: 2023.05.16.1)
+        * debian/postrm: Ignore failures during execution of
+          deluser/delgroup: (Closes: #1035292). (bee8be2)
+
+2022-09-17 Mike Gabriel
+
+        * bin/debian-edu-faiinstall: Make sure FAI_CONFIGDIR_REAL is set
+          before it is accessed. (9d8fba3)
+
 2022-09-16 Mike Gabriel
 
-        * release 2022.04.14.1 (HEAD -> master, tag: 2022.04.14.1)
+        * release debian/2022.04.14.1 (9b87327) (tag: debian/2022.04.14.1)
+        * debian/control: Add Rules-Requires-Root: field and set it to 'no'.
+          (6593c3e)
+        * debian/control: Bump Standards-Version: to 4.6.1. No changes
+          needed. (3c7a20e)
 
 2022-04-14 Mike Gabriel
 
