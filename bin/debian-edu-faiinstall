@@ -317,7 +317,12 @@ fi
 # generate ipxe menu on a plain main server for PXE installations
 cp /usr/lib/ipxe/undionly.kpxe "${tftpdir}/debian-edu-fai/"
 cp /usr/lib/ipxe/snponly.efi "${tftpdir}/debian-edu-fai/"
-cp /boot/memtest86+.bin "${tftpdir}/debian-edu-fai/"
+for memtest_bios in memtest86+x64.bin memtest86+.bin; do
+    [ -f "/boot/${memtest_bios}" ] && break
+done
+cp "/boot/${memtest_bios}" "${tftpdir}/debian-edu-fai/"
+memtest_efi="${memtest_bios%.bin}.efi"
+[ -f "/boot/${memtest_efi}" ] && cp "/boot/${memtest_efi}" "${tftpdir}/debian-edu-fai/"
 echo "Generating ${tftpdir}/debian-edu-fai/ltsp.ipxe"
 cat <<EOF > "${tftpdir}/debian-edu-fai/ltsp.ipxe"
 #!ipxe
@@ -352,7 +357,7 @@ choose --timeout \${menu-timeout} --default \${img} img || goto cancel
 goto \${img}
 
 :memtest
-iseq \${platform} pcbios && kernel memtest86+.bin || kernel memtest.efi
+iseq \${platform} pcbios && kernel ${memtest_bios} || kernel ${memtest_efi}
 # Boot "fails" on normal memtest exit with Esc, so show the menu again
 boot ||
 goto start
