@@ -250,15 +250,15 @@ for codename in ${codenames}; do
 			if [ ! -f "${NFSROOT}/.DEBIAN_EDU_FAI_NFSROOT_INSTALLATION_COMPLETED" ]; then
 
 				# enforce NFSROOT re-creation (or initial creation)
-				fai-make-nfsroot -v -f -N -C ${faiconfig}
+				TMPDIR=/tmp fai-make-nfsroot -v -f -N -C ${faiconfig}
 				touch "${NFSROOT}/.DEBIAN_EDU_FAI_NFSROOT_INSTALLATION_COMPLETED"
 
 			else
 
 				# update packages (and clean old kernel images) in NFSROOT
-				fai-make-nfsroot -v -k -N -C ${faiconfig}
+				TMPDIR=/tmp fai-make-nfsroot -v -k -N -C ${faiconfig}
 				# adjust nfsroot configuration (SSH pubkeys, rootpw, etc.)
-				fai-make-nfsroot -v -a -C ${faiconfig}
+				TMPDIR=/tmp fai-make-nfsroot -v -a -C ${faiconfig}
 
 			fi
 
