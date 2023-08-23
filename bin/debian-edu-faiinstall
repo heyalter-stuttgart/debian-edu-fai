@@ -160,6 +160,11 @@ for codename in ${codenames}; do
 			[ "$fai_logserver" ]      && export fai_logserver   && perl -p -e "s/^(#|)LOGSERVER=.{0,1}\@fai_logserver\@.{0,1}\s*\$/LOGSERVER=\'\$ENV{fai_logserver}\'\n/g" "${file_to_adapt%.in}" > "${file_to_adapt%.in}.new"         && mv "${file_to_adapt%.in}.new" "${file_to_adapt%.in}"
 			[ "$fai_loguser" ]        && export fai_loguser     && perl -p -e "s/^(#|)LOGUSER=.{0,1}\@fai_loguser\@.{0,1}\s*\$/LOGUSER=\'\$ENV{fai_loguser}\'\n/g" "${file_to_adapt%.in}" > "${file_to_adapt%.in}.new"                 && mv "${file_to_adapt%.in}.new" "${file_to_adapt%.in}"
 
+			# hack for non-free-firmware repo area added since Debian 12 (aka bookworm) [we only support Debian 11 (aka bullseye) and upwards]
+			if [ "$codename" = "bullseye" ]; then
+				perl -p -e "s/ non-free-firmware//g" "${file_to_adapt%.in}" > "${file_to_adapt%.in}.new" && mv "${file_to_adapt%.in}.new" "${file_to_adapt%.in}"
+			fi
+
 			chown root:root ${file_to_adapt%.in}
 			chmod 0600 ${file_to_adapt%.in}
 			rm ${file_to_adapt}
