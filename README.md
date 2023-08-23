@@ -27,6 +27,14 @@ Before running ``debian-edu-faiinstall``, please adjust the configuration file
 ``/etc/debian-edu/faiinstall.conf``. That configuration file contains parameter
 documentation in its comments, please follow suggestions etc. given there.
 
+### Configure NFS exports
+
+The directories `/srv/fai/config` and `/srv/fai/nfsroots.debian-edu-fai` need
+to be exported via NFS.  There is an corresponding exports file
+`/usr/share/debian-edu-fai/exports.d/debian-edu-fai.exports` which can be
+copied to `/etc/exports.d`, afterwards `exportfs -ra` needs to be run for the
+change to take effect.
+
 ### SSH access of the FAI installer to the FAI server
 
 At the end of a FAI installation, the FAI installer attempts to write its
