@@ -24,8 +24,9 @@ Only a few steps are required manually before executing
 ### Adjust the Debian Edu FAI configuration
 
 Before running ``debian-edu-faiinstall``, please adjust the configuration file
-``/etc/debian-edu/faiinstall.conf``. That configuration file contains parameter
-documentation in its comments, please follow suggestions etc. given there.
+`/etc/debian-edu/debian-edu-fai.conf`. That configuration file contains
+parameter documentation in its comments, please follow suggestions etc. given
+there.
 
 ### Configure NFS exports
 
@@ -41,18 +42,19 @@ At the end of a FAI installation, the FAI installer attempts to write its
 installation logs back to the FAI server. This is done via SSH (using
 pub/priv SSH key authentication).
 
-To include this feature in your setup, please run these commands (with
-some interactions of pressing the <ENTER> key) from the command line as
-super-user root on your FAI server:
+To include this feature in your setup, make sure the following configuration
+options are set in `/etc/debian-edu/debian-edu-fai.conf`:
 
 ```
-$ su - fai
-$ ssh-keygen
-$ cat ~fai/.ssh/id_rsa.pub >> ~fai/.ssh/authorized_keys
-$ ssh fai@$(hostname -s)
-### accept host key with 'yes'
-$ ssh fai@$(hostname -f)
-### accept host key with 'yes'
-$ ssh fai@$(hostname -I | cut -d" " -f1)
-### accept host key with 'yes'
+fai_logserver="$(hostname -f)"
+fai_loguser='fai'
+```
+
+and run the follwoing command as root:
+
+```
+runuser -u fai -- sh -c 'umask 077;
+    ssh-keygen -q -t rsa -f ~/.ssh/id_rsa -N "" &&
+    cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys &&
+    ssh-keyscan -H "$(hostname -f)" >> ~/.ssh/known_hosts'
 ```
