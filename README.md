@@ -2,10 +2,13 @@
 
 ## Setup with script 'debian-edu-faiinstall'
 
-To setup a Debian Edu machine as FAI installer for Debian Edu, simply run
-the ``debian-edu-faiinstall`` script either on a the Debian Edu mainserver
-or on a dedicated Debian Edu machine that shall act as a FAI server on
-the network.
+To setup a Debian Edu machine as FAI installer for Debian Edu, the
+``debian-edu-faiinstall`` script can be used, either on a the Debian Edu
+mainserver or on a dedicated Debian Edu machine that shall act as a FAI server
+on the network.
+
+Before using ``debian-edu-faiinstall`` for the first time a few manual steps
+need to be taken to prepare the server.  Please see below for the details.
 
 The ``debian-edu-faiinstall`` is (i.e. should be) idempotent. So, it is
 possible to execute it several times and it won't do any damage when
@@ -16,19 +19,16 @@ TFTP configuration for LTSP (which is the case for the Debian Edu mainserver
 and for Debian Edu Terminal Servers) it will move that configuration out
 of the way and replace it by the Debian Edu FAI configuration.
 
-## Manual steps
+### Manual steps
 
-Only a few steps are required manually before executing
-``debian-edu-faiinstall`` the first time.
-
-### Adjust the Debian Edu FAI configuration
+#### Adjust the Debian Edu FAI configuration
 
 Before running ``debian-edu-faiinstall``, please adjust the configuration file
 `/etc/debian-edu/debian-edu-fai.conf`. That configuration file contains
 parameter documentation in its comments, please follow suggestions etc. given
 there.
 
-### Configure NFS exports
+#### Configure NFS exports
 
 The directories `/srv/fai/config` and `/srv/fai/nfsroots.debian-edu-fai` need
 to be exported via NFS.  There is an corresponding exports file
@@ -36,7 +36,7 @@ to be exported via NFS.  There is an corresponding exports file
 copied to `/etc/exports.d`, afterwards `exportfs -ra` needs to be run for the
 change to take effect.
 
-### SSH access of the FAI installer to the FAI server
+#### SSH access of the FAI installer to the FAI server
 
 At the end of a FAI installation, the FAI installer attempts to write its
 installation logs back to the FAI server. This is done via SSH (using
