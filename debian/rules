@@ -11,3 +11,8 @@
 
 %:
 	dh $@
+
+override_dh_fixperms:
+	dh_fixperms
+	# contains password hashes
+	chmod 640 debian/debian-edu-fai/etc/debian-edu/debian-edu-fai.conf

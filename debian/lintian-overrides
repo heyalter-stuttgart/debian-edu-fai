@@ -1,0 +1,2 @@
+# 06400 permission of etc/debian-edu/debian-edu-fai.conf due to password hashes
+non-standard-file-perm 0640 != 0644 [etc/debian-edu/debian-edu-fai.conf]
