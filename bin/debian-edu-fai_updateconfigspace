@@ -1,0 +1,92 @@
+#!/bin/sh
+
+# Copyright (C) 2010-2023 Pädagogisches Landesinstitut Rheinland-Pfalz
+# Copyright (C) 2022-2023 Mike Gabriel <mike.gabriel@das-netzwerkteam.de>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the
+# Free Software Foundation, Inc.,
+# 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
+
+# Sync FAI config space files from DATADIR/fai/config/ to
+# /srv/fai/config. For this, the 'ucf' tool is used, three-way
+# patching is supported for this.
+
+set -e
+
+LC_ALL=C
+export LC_ALL
+
+if [ -z "$1" ]; then
+	echo "usage: $(basename $0) <FAI_CONFIGDIR>"
+	exit 1
+fi
+
+# first parameter is the configspace's target dir
+FAI_CONFIGDIR="$1"
+
+FAI_CONFIGDIR_REAL="${FAI_CONFIGDIR}"
+# if FAI_CONFIGDIR is a symlink, we need to find the real location...
+if [ -h ${FAI_CONFIGDIR} ]; then
+	FAI_CONFIGDIR_REAL="$(readlink ${FAI_CONFIGDIR})"
+fi
+
+# Copy FAI config space into /srv/fai/config if not already present
+if [ "${FAI_CONFIGDIR_REAL}" = "/usr/share/debian-edu-fai/fai/config" ]; then
+	echo "ERROR: FAI_CONFIGDIR points to '${FAI_CONFIGDIR_REAL}'."
+	echo "ERROR: Such a setup is not supported..."
+	exit 1
+elif [ -d "${FAI_CONFIGDIR_REAL}/.git" ]; then
+	# FAI config space is managed by Git, don't do anything then...
+	:
+else
+	# create config space's base directory if it does not yet exist
+	if [ ! -d "${FAI_CONFIGDIR_REAL}" ]; then
+		mkdir -p "${FAI_CONFIGDIR_REAL}"
+	fi
+
+	# remove obsolete files used in previous FAI configspace versions
+	cd "${FAI_CONFIGDIR_REAL}"
+	cat /usr/share/debian-edu-fai/fai/config/_obsolete-files.d/*.removed | while read obsolete_configspace_file; do
+		rm -fv "${obsolete_configspace_file}"
+		# purge file's hash from ucf hash list
+		ucf -p "${FAI_CONFIGDIR_REAL}/${obsolete_configspace_file}"
+		# try to remove non-used / empty directories
+		if [ -d "$(dirname ${obsolete_configspace_file})" ]; then
+			rmdir --parents --ignore-fail-on-non-empty "$(dirname ${obsolete_configspace_file})"
+		fi
+	done
+	cd - 1>/dev/null
+
+	# managed FAI config space with 'ucf'...
+	cd "/usr/share/debian-edu-fai/fai/config"
+	find . -type f | grep -v "_obsolete-files.d/" | while read new_configspace_file; do
+		# handle files that shall become a directory gracefully
+		target_dir="${FAI_CONFIGDIR_REAL}/$(dirname "${new_configspace_file}")"
+		if [ -e "${target_dir}" ] && [ ! -d "${target_dir}" ]; then
+			mv -v "${target_dir}" "${target_dir}.moved-out-of-the-way"
+		fi
+		mkdir -p "${FAI_CONFIGDIR_REAL}/$(dirname "${new_configspace_file}")"
+		if [ -e "${target_dir}.moved-out-of-the-way" ]; then
+			mv -v "${target_dir}.moved-out-of-the-way" "${target_dir}/OBSOLETE"
+		fi
+		# install/update configspace file via ucf
+		ucf --state-dir "/var/lib/debian-edu-fai/ucf/" --three-way "$new_configspace_file" "${FAI_CONFIGDIR_REAL}/${new_configspace_file}"
+	done
+	cd - 1>/dev/null
+
+	# clean-up ucf backup files... (they confuse FAI)
+	cd "${FAI_CONFIGDIR_REAL}"
+	find . -name "*.ucf-*" -delete
+	cd - 1>/dev/null
+fi

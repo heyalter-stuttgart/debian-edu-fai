@@ -195,18 +195,16 @@ for codename in ${codenames}; do
 			FAI_CONFIGDIR_REAL="$(readlink ${FAI_CONFIGDIR})"
 		fi
 
-		# Copy FAI config space into /srv/fai/config if not already present
-		if [ ! -d "${FAI_CONFIGDIR_REAL}" ]; then
-			# Ensure parent directory exists before copying config space
-			fai_configdir_parent="$(dirname "${FAI_CONFIGDIR_REAL}")"
-			mkdir -p "${fai_configdir_parent}"
-			if [ -d /usr/share/debian-edu-fai/fai/config ]; then
-				cp -a /usr/share/debian-edu-fai/fai/config "${fai_configdir_parent}"
-			else
-				echo "ERROR: Package debian-edu-fai is not installed, please install it first"
-				exit 1
-			fi
-		fi
+		set +x
+
+		echo
+		echo "###"
+		echo "### Installing/updating FAI config space (this takes some time)"
+		echo "### (codename: ${codename}, architecture: ${arch})"
+		echo "###"
+		debian-edu-fai_updateconfigspace "${FAI_CONFIGDIR_REAL}"
+
+		set -x
 
 		# Update variables to be customized in FAI config space
 
