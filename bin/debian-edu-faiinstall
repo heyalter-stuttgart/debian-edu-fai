@@ -2,7 +2,7 @@
 #
 # Prepare for FAI installation of Debian Edu.
 
-set -ex
+set -x
 
 LC_ALL=C
 export LC_ALL
@@ -132,6 +132,16 @@ for codename in ${codenames}; do
 	# iterate over configured FAI client architectures...
 	for arch in ${archs}; do
 
+		set +x
+
+		echo
+		echo "###"
+		echo "### Creating/updating FAI server configuration"
+		echo "### (codename: ${codename}, architecture: ${arch})"
+		echo "###"
+
+		set -x
+
 		# create codename based fai base config
 		faiconfig="/etc/debian-edu/fai/debian-edu-fai.${arch}+${codename}"
 		if [ -d /etc/debian-edu/fai/debian-edu-fai.TEMPLATE ]; then
@@ -213,6 +223,17 @@ for codename in ${codenames}; do
 		# This is a known issue and works as designed. People might have chosen to
 		# use difference FAI_CONFIGDIR values for different environments and with
 		# such a choice executing the below per arch and per codename makes sense.
+
+		set +x
+
+		echo
+		echo "###"
+		echo "### Tweaking FAI config space"
+		echo "### (codename: ${codename}, architecture: ${arch})"
+		echo "###"
+
+		set -x
+
 		find ${FAI_CONFIGDIR_REAL} -name '*.in' | while read file_to_adapt; do
 
 			cp ${file_to_adapt} ${file_to_adapt%.in}
@@ -238,6 +259,14 @@ for codename in ${codenames}; do
 			export APTPROXY="${http_proxy}"
 			export http_proxy
 		fi
+
+		set +x
+
+		echo
+		echo "###"
+		echo "### Creating FAI nfsroot installer environment"
+		echo "### (codename: ${codename}, architecture: ${arch})"
+		echo "###"
 
 		# the NFSROOT variable we should have obtained from sourcing $faiconfig/nfsroot.conf
 		# (aka /etc/fai/nfsroot.conf) above...
@@ -303,6 +332,9 @@ kernel /debian-edu-fai/${arch}+${codename}/vmlinuz initrd=initrd.img \${params}
 initrd /debian-edu-fai/${arch}+${codename}/initrd.img
 boot || goto failed
 EOF
+
+		set -x
+
 	done
 done
 
