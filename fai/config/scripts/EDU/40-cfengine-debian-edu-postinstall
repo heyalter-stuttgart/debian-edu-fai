@@ -29,8 +29,8 @@ mkdir -p $target/etc/xdg/xfce4/panel/
 # Do the conversion of the vanilla Debian system to a Debian Edu system
 chroot $target /usr/bin/cf-agent -I -D installation
 
-# fetch LDAP certs
-chroot $target /etc/init.d/fetch-ldap-cert start
+# fetch DebianEdu root CA certs
+chroot $target /usr/share/debian-edu-config/tools/fetch-rootca-cert
 
 sed -i $target/etc/wgetrc \
     -e "s@^http_proxy\s*=.*@http_proxy = $http_proxy@" \
