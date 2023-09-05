@@ -280,17 +280,20 @@ for codename in ${codenames}; do
 			if [ ! -f "${NFSROOT}/.DEBIAN_EDU_FAI_NFSROOT_INSTALLATION_COMPLETED" ]; then
 
 				# enforce NFSROOT re-creation (or initial creation)
+				mkdir -p "${NFSROOT}/proc"
+				mount -t proc proc "${NFSROOT}/proc"
 				TMPDIR=/tmp fai-make-nfsroot -v -f -N -C ${faiconfig}
 				touch "${NFSROOT}/.DEBIAN_EDU_FAI_NFSROOT_INSTALLATION_COMPLETED"
-
 			else
-
+				mount -t proc proc "${NFSROOT}/proc"
 				# update packages (and clean old kernel images) in NFSROOT
 				TMPDIR=/tmp fai-make-nfsroot -v -k -N -C ${faiconfig}
 				# adjust nfsroot configuration (SSH pubkeys, rootpw, etc.)
 				TMPDIR=/tmp fai-make-nfsroot -v -a -C ${faiconfig}
 
 			fi
+			[ -d "${NFSROOT}/proc/self" ] && umount "${NFSROOT}/proc"
+			[ -d "${NFSROOT}/sys/class" ] && umount "${NFSROOT}/sys"
 
 			# Remove /srv/tftp/debian-edu-fai.ARCH+CODENAME after NFSROOT creation.
 			# We don't need that as we use our own iPXE boot config (instead
