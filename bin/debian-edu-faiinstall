@@ -124,7 +124,7 @@ touch "${menufile}"
 for codename in ${codenames}; do
 
 	# skip codenames that don't sound like Debian suites...
-	if ! echo "jessie stretch buster bullseye bookworm sid unstable" | grep -q "${codename}"; then
+	if ! echo "bullseye bookworm sid unstable" | grep -q "${codename}"; then
 		echo "WARNING: The name '${codename}' is not a known and recent Debian distribution codename. Skipping..."
 		continue
 	fi
