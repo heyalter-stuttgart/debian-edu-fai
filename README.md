@@ -31,7 +31,7 @@ there.
 #### Configure NFS exports
 
 The directories `/srv/fai/config` and `/srv/fai/nfsroots.debian-edu-fai` need
-to be exported via NFS.  There is an corresponding exports file
+to be exported via NFS.  There is a corresponding `exports` file
 `/usr/share/debian-edu-fai/exports.d/debian-edu-fai.exports` which can be
 copied to `/etc/exports.d`, afterwards `exportfs -ra` needs to be run for the
 change to take effect.
