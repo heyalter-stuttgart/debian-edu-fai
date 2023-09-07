@@ -1,6 +1,78 @@
+2023-09-07 Mike Gabriel
+
+        * release 2023.09.07.1 (HEAD -> master, tag: 2023.09.07.1)
+        * lintian: Override uses-dpkg-database-directly and
+          openpgp-file-has-implementation-specific-extension for
+          given reasons. (253caaf)
+        * debian/copyright: Update copyright attributions. (2104386)
+        * debian/control: Bump Standards-Version: to 4.6.2. No changes
+          needed. (7ecf9f0)
+        * chmod a+x bin/debian-edu-fai_updateconfigspace (7ab10aa)
+        * {README.md,conf/debian-edu/debian-edu-fai.conf}: Adjust files to
+          renaming of debian-edu-fai_install script (only in docs or
+          comments). (8d4d831)
+        * README.md: Typo fix. (c659279)
+
+2023-09-05 Guido Berhoerster
+
+        * Replace fetch-ldap-cert script usage with fetch-rootca-cert
+          (4938961)
+        * Rename bin/debian-edu-faiinstall to bin/debian-edu-fai_install for
+          consistency (094a2f0)
+
+2023-09-05 Mike Gabriel
+
+        * bin/debian-edu-faiinstall: Mount /proc and /sys in nfsroot
+          (f1ae3f8)
+        * bin/debian-edu-router-faiinstall: Drop support for Debian versions
+          older than bullseye (6b2eb0b)
+
+2023-09-04 Mike Gabriel
+
+        * bin/debian-edu-faiinstall: Echo headlines to show where we are in
+          the script (889a6ce)
+        * bin/debian-edu-faiinstall: Manage config space with ucf (c1f2924)
+
+2023-09-04 Guido Berhoerster
+
+        * Ensure debian-edu-fai.conf is not world-readable (0b635dd)
+
+2023-08-31 Guido Berhoerster
+
+        * Change instructions to emphasize the need for first time
+          configuration (bcc1419)
+
+2023-08-25 Guido Berhoerster
+
+        * Update motd for bookworm (ae53ac0)
+        * Add note about syntax to configuration (39eaabb)
+
+2023-08-24 Guido Berhoerster
+
+        * Recommend the use of yescrypt password hashes (30c32ed)
+        * Add primary group for the fai user (e70b9d9)
+        * Fix instructions in README.md and
+          /etc/debian-edu/debian-edu-fai.conf (701d379)
+        * Disable apt proxy by default (0fc425f)
+        * Ensure parent of target directory exists before copying FAI config
+          space (d075d69)
+        * Switch to installing bookworm (80deeb5)
+
+2023-08-23 Guido Berhoerster
+
+        * Add some documentation about NFS exports to README.md (7b19c84)
+        * Unset TMPDIR when invoking fai-make-nfsroot (417b723)
+        * Add explicit dependency on memtest86+ (eb0fb9f)
+        * Add support for memtest86+ 6 (9d09117)
+        * Use non-free-firmware component on bookworm and later (9f8a332)
+
+2023-09-06 Guido Berhoerster
+
+        * Actually install /etc/security/group.conf on bullseye (c9af1e8)
+
 2023-05-16 Mike Gabriel
 
-        * release 2023.05.16.1 (HEAD -> master, tag: 2023.05.16.1)
+        * release 2023.05.16.1 (7b3f31c) (tag: 2023.05.16.1)
         * debian/postrm: Ignore failures during execution of
           deluser/delgroup: (Closes: #1035292). (bee8be2)
 

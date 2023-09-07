@@ -1,3 +1,77 @@
+debian-edu-fai (2023.09.07.1) unstable; urgency=medium
+
+  * Debian Edu FAI for Debian bookworm.
+
+  [ Guido Berhoerster ]
+  * Rename bin/debian-edu-faiinstall to bin/debian-edu-fai_install for
+    consistency with debian-edu-router.
+  * Actually install /etc/security/group.conf on bullseye. From bookworm on this
+    is handled via cfengine.
+  * Use non-free-firmware component on bookworm and later.
+    This is required for installing the firmware packages.
+  * Add support for memtest86+ x64.
+  * debian/control: Add explicit dependency on memtest86+.
+  * Unset TMPDIR when invoking fai-make-nfsroot.
+    On a DebianEdu installation pam_tmpdir is installed which sets TMPDIR to
+    /tmp/user/<uid>.  This is then propagated from fai-make-nfsroot to
+    debootstrap which causes maintainer scripts making use of TMPDIR (e.g. by
+    calling mktemp) to fail because the directory does not exist inside the
+    chroot.
+  * Add some documentation about NFS exports to README.md
+  * Switch to installing bookworm.
+  * Ensure parent of target directory exists before copying FAI config space
+    debian-edu-faiinstall does not check whether the parent of the target
+    directory /srv/fai/config existed before invoking cp -a on the config space.
+    Thus, if /srv/fai does no exist cp will copy /usr/share/debian-edu-fai/fai
+    /config to /srv/fai instead of /srv/fai/config which is not detected until
+    booting a client via PXE.  Fix this by ensuring the parent directory of
+    $FAI_CONFIGDIR_REAL exists.
+    Additionally do not hardcode /srv/fai which ignores that FAI_CONFIGDIR is
+    configurable.
+  * Disable apt proxy by default. Do not assume faiserver.intern exists. The
+    proxy can be set via /etc/debian-edu/debian-edu-fai.conf.
+  * Fix instructions in README.md and /etc/debian-edu/debian-edu-fai.conf
+    The configuration file name is /etc/debian-edu/debian-edu-fai.conf not
+    /etc/debian-edu/faiinstall.conf.
+    Improve and shorten the instructions to set up SSH access for the fai user.
+  * Add primary group fai for the fai user (instead of primary group
+    nobody).
+  * Recommend the use of yescrypt password hashes.
+    This follows the default since Debian bullseye.
+  * Add note about syntax to configuration.
+  * Update motd for bookworm.
+  * README.md: Change instructions to emphasize the need for first time
+    configuration. Users should not be enticed to blindly run
+    debian-edu-fai_install before actually configuring the server.
+  * Ensure debian-edu-fai.conf is not world-readable
+    It contains password hashes for the root account of installed clients so
+    like /etc/shadow it should not be world readable.
+  * Replace fetch-ldap-cert script usage with fetch-rootca-cert
+    The fetch-ldap-cert init script has been obsolete and was removed
+    (see #971780).
+
+  [ Mike Gabriel ]
+  * bin/debian-edu-fai_install (port over from debian-edu-router's FAI
+    installation script):
+    + Manage config space with ucf.
+    + Echo headlines to show where we are in the script.
+    + Drop support for Debian versions older than bullseye
+    + Mount /proc and /sys in nfsroot
+  * README.md: Typo fix.
+  * {README.md,conf/debian-edu/debian-edu-fai.conf}: Adjust files to renaming
+    of debian-edu-fai_install script (only in docs or comments).
+  * bin/debian-edu-fai_install: Mount /proc and /sys in nfsroot
+    Mount prior to creating/updating it. Those mountpoints are needed by
+    dracut's  45url-libs module.
+  * debian/control:
+    + Bump Standards-Version: to 4.6.2. No changes needed.
+  * debian/copyright:
+    + Update copyright attributions.
+  * lintian: Override uses-dpkg-database-directly and openpgp-file-has-
+    implementation-specific-extension for given reasons.
+
+ -- Mike Gabriel <sunweaver@debian.org>  Thu, 07 Sep 2023 21:16:37 +0200
+
 debian-edu-fai (2023.05.16.1) unstable; urgency=medium
 
   * bin/debian-edu-faiinstall: Make sure FAI_CONFIGDIR_REAL is set before it
