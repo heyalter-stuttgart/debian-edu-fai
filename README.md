@@ -1,20 +1,20 @@
 # Debian Edu FAI Installer
 
-## Setup with script 'debian-edu-faiinstall'
+## Setup with script 'debian-edu-fai_install'
 
 To setup a Debian Edu machine as FAI installer for Debian Edu, the
-``debian-edu-faiinstall`` script can be used, either on a the Debian Edu
+``debian-edu-fai_install`` script can be used, either on a the Debian Edu
 mainserver or on a dedicated Debian Edu machine that shall act as a FAI server
 on the network.
 
-Before using ``debian-edu-faiinstall`` for the first time a few manual steps
+Before using ``debian-edu-fai_install`` for the first time a few manual steps
 need to be taken to prepare the server.  Please see below for the details.
 
-The ``debian-edu-faiinstall`` is (i.e. should be) idempotent. So, it is
+The ``debian-edu-fai_install`` is (i.e. should be) idempotent. So, it is
 possible to execute it several times and it won't do any damage when
 running repeatedly (except from re-creating all configs related to FAI).
 
-When running ``debian-edu-faiinstall`` on a machine that already ships a
+When running ``debian-edu-fai_install`` on a machine that already ships a
 TFTP configuration for LTSP (which is the case for the Debian Edu mainserver
 and for Debian Edu Terminal Servers) it will move that configuration out
 of the way and replace it by the Debian Edu FAI configuration.
@@ -23,7 +23,7 @@ of the way and replace it by the Debian Edu FAI configuration.
 
 #### Adjust the Debian Edu FAI configuration
 
-Before running ``debian-edu-faiinstall``, please adjust the configuration file
+Before running ``debian-edu-fai_install``, please adjust the configuration file
 `/etc/debian-edu/debian-edu-fai.conf`. That configuration file contains
 parameter documentation in its comments, please follow suggestions etc. given
 there.
