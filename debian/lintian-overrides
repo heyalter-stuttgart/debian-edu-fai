@@ -1,2 +1,9 @@
 # 06400 permission of etc/debian-edu/debian-edu-fai.conf due to password hashes
 non-standard-file-perm 0640 != 0644 [etc/debian-edu/debian-edu-fai.conf]
+
+# Ignore! This file is part of the FAI config space, a configuration used for
+# installing Debian systems. This needs to perform direct access to dpkg database.
+debian-edu-fai: uses-dpkg-database-directly [usr/share/debian-edu-fai/fai/config/scripts/LAST/50-misc]
+
+# Ignore! FAI (for apt) only supports .gpg files...
+debian-edu-fai: openpgp-file-has-implementation-specific-extension [etc/debian-edu/fai/debian-edu-fai.TEMPLATE/apt/trusted.gpg.d/fai-project.gpg]
