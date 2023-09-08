@@ -11,7 +11,9 @@ for module in $MODULESLIST; do
 done
 
 fcopy -Mv /etc/hostname || echo $HOSTNAME > $target/etc/hostname
-ainsl -a /etc/mailname ${HOSTNAME}
+if [ ! -e $target/etc/mailname ]; then
+	printf 'postoffice.intern\n' > $target/etc/mailname
+fi
 if [ ! -e $target/etc/adjtime ]; then
 	printf "0.0 0 0.0\n0\nUTC\n" > $target/etc/adjtime
 fi
