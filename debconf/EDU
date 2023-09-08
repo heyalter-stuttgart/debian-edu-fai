@@ -44,5 +44,9 @@ exim4-config	exim4/mailname	string	postoffice.intern
 exim4-config	exim4/dc_minimaldns	boolean	false
 exim4-config	exim4/dc_other_hostnames	string	intern
 
+# nullmailer configuration
+shared/mailname	string	postoffice.intern
+nullmailer/relayhost	string	postoffice.intern
+
 # trigger first-boot logics of debian-edu-install
 debian-edu-install	debian-edu-install/run-firstboot	boolean	true
