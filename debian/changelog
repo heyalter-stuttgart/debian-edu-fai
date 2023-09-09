@@ -1,3 +1,17 @@
+debian-edu-fai (2023.09.09.1) unstable; urgency=medium
+
+  [ Guido Berhoerster ]
+  * Fix nullmailer configuration
+    Configure the nullmailer relayhost (the default is mail.<domain>) in order to
+    allow clients to actually send mail and explicitly set /etc/mailname
+    (Closes: #1051461).
+  * Do not append the hostname to /etc/mailname
+    Do not append to /etc/mailname, the file should contain a single hostname.
+    Rather create it with the default "postoffice.intern" if it does not exist yet.
+    This is consistent with manual installations of Debian Edu.
+
+ -- Mike Gabriel <sunweaver@debian.org>  Sat, 09 Sep 2023 22:51:26 +0200
+
 debian-edu-fai (2023.09.07.1) unstable; urgency=medium
 
   * Debian Edu FAI for Debian bookworm.
