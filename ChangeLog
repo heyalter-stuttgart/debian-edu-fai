@@ -1,6 +1,24 @@
+2023-09-13 Mike Gabriel
+
+        * release 2023.09.13.1 (HEAD -> master, tag: 2023.09.13.1)
+
+2023-09-11 Guido Berhoerster
+
+        * Replace nullmailer with exim4 (0cc6fe4)
+
+2023-09-09 Mike Gabriel
+
+        * upload to unstable (debian/2023.09.09.1) (df2b1e8) (tag:
+          2023.09.09.1)
+
+2023-09-08 Guido Berhoerster
+
+        * Do not append the hostname to /etc/mailname (4c9e66b)
+        * Fix nullmailer configuration (9223282)
+
 2023-09-07 Mike Gabriel
 
-        * release 2023.09.07.1 (HEAD -> master, tag: 2023.09.07.1)
+        * release 2023.09.07.1 (92ddbdd) (tag: 2023.09.07.1)
         * lintian: Override uses-dpkg-database-directly and
           openpgp-file-has-implementation-specific-extension for
           given reasons. (253caaf)
@@ -83,7 +101,7 @@
 
 2022-09-16 Mike Gabriel
 
-        * release debian/2022.04.14.1 (9b87327) (tag: debian/2022.04.14.1)
+        * release debian/2022.04.14.1 (9b87327) (tag: 2022.04.14.1)
         * debian/control: Add Rules-Requires-Root: field and set it to 'no'.
           (6593c3e)
         * debian/control: Bump Standards-Version: to 4.6.1. No changes
@@ -126,7 +144,7 @@
 
 2022-02-22 Mike Gabriel
 
-        * release debian/2022.02.22.1 (b911c85) (tag: debian/2022.02.22.1)
+        * release debian/2022.02.22.1 (b911c85) (tag: 2022.02.22.1)
         * debian/postinst: Fix add user call, add user account name (which
           was obviously missing). (82d6f58)
 
@@ -148,7 +166,7 @@
 
 2022-02-09 Mike Gabriel
 
-        * release 2022.02.09.1 (7078eef) (tag: debian/2022.02.09.1)
+        * release 2022.02.09.1 (7078eef) (tag: 2022.02.09.1)
         * fai/config/package_config/STANDARD: python{,-minimal} are virtual,
           let's use python3{,-minimal} instead. (a97eaac)
         * bin/debian-edu-faiinstall: Fix school_tag here, too. (6745dee)
@@ -164,7 +182,7 @@
 
 2022-01-31 Mike Gabriel
 
-        * release 2022.01.31.1 (76f787b) (tag: debian/2022.01.31.1)
+        * release 2022.01.31.1 (76f787b) (tag: 2022.01.31.1)
         * debian/control: Move from R: to D: adduser, fai-server, ipxe.
           (0a93d80)
         * fai/config/files/etc/security/group.conf/: Use same group.conf for
