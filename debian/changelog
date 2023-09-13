@@ -1,3 +1,13 @@
+debian-edu-fai (2023.09.13.1) unstable; urgency=medium
+
+  [ Guido Berhoerster ]
+  * Replace nullmailer with exim4
+    This corresponds to a manual installation and avoids problems with nullmailer
+    such as excessive delivery attempts of all queued messages at once and
+    excessive logging of such events (see discussion in #1051461).
+
+ -- Mike Gabriel <sunweaver@debian.org>  Wed, 13 Sep 2023 08:55:53 +0200
+
 debian-edu-fai (2023.09.09.1) unstable; urgency=medium
 
   [ Guido Berhoerster ]
