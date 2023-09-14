@@ -4,6 +4,8 @@
 #
 # (c) 2015 by Thomas Lange, lange@informatik.uni-koeln.de
 # Universitaet zu Koeln
+# (c) 2023 by Mike Gabriel, mike.gabriel@das-netzwerkteam.de
+# Fre(i)e Software GmbH
 
 if [ X$FAI_ACTION = Xinstall -o X$FAI_ACTION = Xdirinstall -o X$FAI_ACTION = X ]; then
     :
@@ -114,11 +116,25 @@ prtresult() {
     newclasses="${arclasses[$res]}"
 }
 
+# a very simple OS + version detection mechanism, only usable on Debian
+# nfsroots for now...
+OS_SUFFIX=""
+if [ -e "/etc/debian_version" ]; then
+    OS_SUFFIX+="DEBIAN"
+    OS_VERSION_MAJOR=$(cat /etc/debian_version | head -n1 | cut -d"." -f1)
+    OS_SUFFIX+="_${OS_VERSION_MAJOR}"
+fi
 
 # read all files with name matching *.profile 
 _parsed=0
 shopt -s nullglob
 for _f in *.profile; do
+    parse_profile $_f
+    _parsed=1
+done
+
+# additionally read all files with name matching *.profile.<OS_SUFFIX>
+for _f in *.profile.${OS_SUFFIX}; do
     parse_profile $_f
     _parsed=1
 done
