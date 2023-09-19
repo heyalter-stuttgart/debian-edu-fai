@@ -121,7 +121,7 @@ prtresult() {
 OS_SUFFIX=""
 if [ -e "/etc/debian_version" ]; then
     OS_SUFFIX+="DEBIAN"
-    OS_VERSION_MAJOR=$(cat /etc/debian_version | head -n1 | cut -d"." -f1)
+    OS_VERSION_MAJOR="$(head -n1 /etc/debian_version | cut -d"." -f1)"
     OS_SUFFIX+="_${OS_VERSION_MAJOR}"
 fi
 
