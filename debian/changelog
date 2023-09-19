@@ -1,3 +1,28 @@
+debian-edu-fai (2023.09.19.1) unstable; urgency=medium
+
+  [ Mike Gabriel ]
+  * {bin/debian-edu-fai_install,fai/config/class/DEBIAN.var.in}:
+    + Propagate mirrorurl from debian-edu-fai.conf into FAI config space.
+    + Don't use @mirrorurl@, use internally derived @apt_cdn@ variable instead.
+  * files/etc/apt/sources.list.d/fai-mirror.list/FAI_MIRROR:
+    + Use more generic mirror (path) URL.
+  * APT sources: Use {%apt_cdn%} variable instead of hard-coded servername.
+  * bin/debian-edu-fai_install:
+    + Fix config file's name in comment.
+  * bin/debian-edu-fai_updateconfigspace:
+    + More reliably detect if we are in a Git working copy.
+  * fai/config/class:
+    + Add OS detection code to 40-parse-profiles.sh to support OS + version specific
+      installation profiles (detect from FAI nfsroot OS + version).
+  * fai/config/class:
+    + Rename / add profile files, now OS + version specific.
+
+  [ Guido Berhörster ]
+  * fai/config/class/40-parse-profiles.sh:
+    + Adjust OS_VERSION_MAJOR population.
+
+ -- Mike Gabriel <sunweaver@debian.org>  Tue, 19 Sep 2023 22:05:11 +0200
+
 debian-edu-fai (2023.09.13.1) unstable; urgency=medium
 
   [ Guido Berhoerster ]
