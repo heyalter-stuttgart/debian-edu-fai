@@ -116,14 +116,8 @@ prtresult() {
     newclasses="${arclasses[$res]}"
 }
 
-# a very simple OS + version detection mechanism, only usable on Debian
-# nfsroots for now...
-OS_SUFFIX=""
-if [ -e "/etc/debian_version" ]; then
-    OS_SUFFIX+="DEBIAN"
-    OS_VERSION_MAJOR="$(head -n1 /etc/debian_version | cut -d"." -f1)"
-    OS_SUFFIX+="_${OS_VERSION_MAJOR}"
-fi
+# a very simple OS + version detection mechanism
+OS_SUFFIX="$(source /etc/os-release 2>/dev/null && printf "%s_%s" "${ID^^}" "${VERSION_ID}")"
 
 # read all files with name matching *.profile 
 _parsed=0
