@@ -65,6 +65,7 @@ fi
 [ "$fai_logserver" ]    || unset fai_logserver
 [ "$fai_loguser" ]      || unset fai_loguser
 [ "$school_tag" ]       || school_tag="SKOLE"
+[ "$http_proxy" ]       || unset http_proxy
 
 # required for pre-selecting the default boot item in iPXE config
 [ "$default_arch" ]     || default_arch="$(echo ${archs} | cut -d " " -f1)"
@@ -253,6 +254,7 @@ for codename in ${codenames}; do
 			[ "$school_tag" ]         && export school_tag      && perl -p -e "s/\@school_tag\@/\$ENV{school_tag}/g" "${file_to_adapt%.in}" > "${file_to_adapt%.in}.new" && mv "${file_to_adapt%.in}.new" "${file_to_adapt%.in}"
 			[ "$mirrorurl" ]          && export mirrorurl       && perl -p -e "s/\@mirrorurl\@/\$ENV{mirrorurl}/g" "${file_to_adapt%.in}" > "${file_to_adapt%.in}.new" && mv "${file_to_adapt%.in}.new" "${file_to_adapt%.in}"
 			[ "$apt_cdn" ]            && export apt_cdn         && perl -p -e "s/\@apt_cdn\@/\$ENV{apt_cdn}/g" "${file_to_adapt%.in}" > "${file_to_adapt%.in}.new" && mv "${file_to_adapt%.in}.new" "${file_to_adapt%.in}"
+			[ "$http_proxy" ]         && export http_proxy      && perl -p -e "s/^(#|)APTPROXY=\@http_proxy\@/APTPROXY=\$ENV{http_proxy}/g" "${file_to_adapt%.in}" > "${file_to_adapt%.in}.new" && mv "${file_to_adapt%.in}.new" "${file_to_adapt%.in}"
 
 			chown root:root ${file_to_adapt}
 			chmod 0600 ${file_to_adapt}
