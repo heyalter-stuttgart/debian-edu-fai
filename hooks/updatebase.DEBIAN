@@ -1,9 +1,9 @@
 #! /bin/bash
 
 if [ -n "$APTPROXY" ]; then
-    echo "Acquire::http::Proxy \"$APTPROXY\";" > $target/etc/apt/apt.conf.d/02proxy
+    echo "Acquire::http::Proxy \"$APTPROXY\";" > $target/etc/apt/apt.conf.d/04proxy
 else
-    rm -f $target/etc/apt/apt.conf.d/02proxy
+    rm -f $target/etc/apt/apt.conf.d/04proxy
 fi
 
 echo force-unsafe-io > $target/etc/dpkg/dpkg.cfg.d/unsafe-io
