@@ -1,6 +1,25 @@
+2023-09-25 Mike Gabriel
+
+        * release 2023.09.26.1 (HEAD -> master, tag: 2023.09.26.1)
+
+2023-09-23 Mike Gabriel
+
+        * fai/config/hooks/updatebase.DEBIAN: Debian Edu sets up http proxy
+          configuration via 03debian-edu-config. To override this
+          (which we want), we need to move 02proxy to 04proxy in
+          /etc/apt/apt.conf.d/. (2a0242a)
+        * bin/debian-edu-fai_install: Promote http_proxy settings into FAI
+          config space and set APTPROXY variable accordingly.
+          (3926deb)
+
+2023-09-20 Guido Berhoerster
+
+        * Improve OS detection for loading profiles (93aff93)
+
 2023-09-19 Mike Gabriel
 
-        * release 2023.09.19.1 (HEAD -> master, tag: 2023.09.19.1)
+        * ChangeLog: update post-release (417ffdd)
+        * release 2023.09.19.1 (2a9e698) (tag: 2023.09.19.1)
 
 2023-09-19 Guido Berhörster
 

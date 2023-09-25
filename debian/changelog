@@ -1,3 +1,18 @@
+debian-edu-fai (2023.09.26.1) unstable; urgency=medium
+
+  [ Guido Berhoerster ]
+  * Improve OS detection for loading profiles
+
+  [ Mike Gabriel ]
+  * ChangeLog: update post-release
+  * bin/debian-edu-fai_install: Promote http_proxy settings into FAI config
+    space and set APTPROXY variable accordingly.
+  * fai/config/hooks/updatebase.DEBIAN: Debian Edu sets up http proxy
+    configuration via 03debian-edu-config. To override this (which we want),
+    we need to move 02proxy to 04proxy in /etc/apt/apt.conf.d/.
+
+ -- Mike Gabriel <sunweaver@debian.org>  Mon, 25 Sep 2023 09:01:00 +0200
+
 debian-edu-fai (2023.09.19.1) unstable; urgency=medium
 
   [ Mike Gabriel ]
