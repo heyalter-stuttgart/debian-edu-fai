@@ -1,3 +1,11 @@
+debian-edu-fai (2023.09.26.2) unstable; urgency=medium
+
+  * debian/control:
+    + Fix installability on non-x86 architectures. People should at least be
+      able to test those platforms.
+
+ -- Mike Gabriel <sunweaver@debian.org>  Mon, 25 Sep 2023 09:30:53 +0200
+
 debian-edu-fai (2023.09.26.1) unstable; urgency=medium
 
   [ Guido Berhoerster ]

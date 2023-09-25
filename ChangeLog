@@ -1,6 +1,9 @@
 2023-09-25 Mike Gabriel
 
-        * release 2023.09.26.1 (HEAD -> master, tag: 2023.09.26.1)
+        * release 2023.09.26.2 (HEAD -> master, tag: 2023.09.26.2)
+        * debian/control: Fix installability on non-x86 architectures. People
+          should at least be able to test those platforms. (63b4890)
+        * release 2023.09.26.1 (3d4cefc) (tag: 2023.09.26.1)
 
 2023-09-23 Mike Gabriel
 
