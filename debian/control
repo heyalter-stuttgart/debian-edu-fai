@@ -16,7 +16,7 @@ Multi-Arch: foreign
 Depends: adduser,
          fai-server,
          ipxe,
-         memtest86+,
+         memtest86+ [amd64 i386],
          ${misc:Depends},
          ${perl:Depends},
 Recommends: qemu-user-static,
