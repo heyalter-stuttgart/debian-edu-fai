@@ -1,3 +1,11 @@
+debian-edu-fai (2023.09.26.3) unstable; urgency=medium
+
+  * debian/control:
+    + Move memtest86+ (for archs amd64 + i386) to Recommends: field as we can't
+      have arch-specific dependencies in arch-all bin:pkgs. (Closes: #1052957).
+
+ -- Mike Gabriel <sunweaver@debian.org>  Tue, 26 Sep 2023 16:53:13 +0200
+
 debian-edu-fai (2023.09.26.2) unstable; urgency=medium
 
   * debian/control:
