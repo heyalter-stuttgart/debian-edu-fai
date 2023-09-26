@@ -16,10 +16,10 @@ Multi-Arch: foreign
 Depends: adduser,
          fai-server,
          ipxe,
-         memtest86+ [amd64 i386],
          ${misc:Depends},
          ${perl:Depends},
 Recommends: qemu-user-static,
+            memtest86+,
 Description: FAI config space for setting up Debian Edu workstations
  The Debian Edu project provides Debian based systems customized for
  schools and other education facilities.
