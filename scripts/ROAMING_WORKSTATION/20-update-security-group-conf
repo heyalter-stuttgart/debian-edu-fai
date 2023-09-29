@@ -1,4 +1,6 @@
 #!/bin/bash
 
 # on bookworm and later this is handled through cfengine
-ifclass DEBIAN_11 && fcopy -iM /etc/security/group.conf
+if ifclass DEBIAN_11; then
+	fcopy -iM /etc/security/group.conf
+fi
