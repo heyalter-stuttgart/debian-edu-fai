@@ -9,4 +9,4 @@ vg_system-root   /      2G-4G     ext4  errors=remount-ro
 vg_system-swap_1 swap   RAM:150%  swap  sw
 vg_system-usr    /usr   8G-12G    ext4  defaults
 vg_system-var    /var   8G-10G    ext4  defaults
-vg_system-home   /srv   4G-6G     ext4  defaults
+vg_system-srv    /srv   4G-6G     ext4  defaults
