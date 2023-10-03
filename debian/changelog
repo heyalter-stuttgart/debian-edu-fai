@@ -1,3 +1,16 @@
+debian-edu-fai (2023.10.03.1) unstable; urgency=medium
+
+  * fai/config/_obsolete-files.d/debian-edu-fai.removed:
+    - Add .asc files which got replaced by .gpg files.
+  * fai/config/scripts/*/20-update-security-group-conf:
+    - Don't fail script if not on DEBIAN_11.
+  * fai/config/disk_config:
+    - LVM_EDU_MINIMAL: Fix LV name (home -> srv).
+    - Enlarge system partitions generously, so that system installation don't
+      fail because of low-disk space.
+
+ -- Mike Gabriel <sunweaver@debian.org>  Tue, 03 Oct 2023 23:14:29 +0200
+
 debian-edu-fai (2023.09.26.3) unstable; urgency=medium
 
   * debian/control:

@@ -1,6 +1,37 @@
+2023-10-03 Mike Gabriel
+
+        * release 2023.10.03.1 (HEAD -> master, tag: 2023.10.03.1)
+        * fai/config/disk_config: Enlarge system partitions generously, so
+          that system installation don't fail because of low-disk
+          space. (a04cb5a)
+
+2023-10-02 Mike Gabriel
+
+        * fai/config/disk_config/LVM_EDU_MINIMAL: Fix LV name (home -> srv).
+          (a5a7448)
+
+2023-09-29 Mike Gabriel
+
+        * fai/config/scripts/*/20-update-security-group-conf: Don't fail
+          script if not on DEBIAN_11. (9154560)
+
+2023-09-27 Mike Gabriel
+
+        * fai/config/_obsolete-files.d/debian-edu-fai.removed: Add .asc files
+          which got replaced by .gpg files. (dbdf2c7)
+
+2023-09-26 Mike Gabriel
+
+        * upload to unstable (debian/2023.09.26.3) (85527cd) (tag:
+          2023.09.26.3)
+        * debian/control: Move memtest86+ (for archs amd64 + i386) to
+          Recommends: field as we can't have arch-specific
+          dependencies in arch-all bin:pkgs. (Closes: #1052957).
+          (d3d0e7c)
+
 2023-09-25 Mike Gabriel
 
-        * release 2023.09.26.2 (HEAD -> master, tag: 2023.09.26.2)
+        * release 2023.09.26.2 (ff9ab9d) (tag: 2023.09.26.2)
         * debian/control: Fix installability on non-x86 architectures. People
           should at least be able to test those platforms. (63b4890)
         * release 2023.09.26.1 (3d4cefc) (tag: 2023.09.26.1)
