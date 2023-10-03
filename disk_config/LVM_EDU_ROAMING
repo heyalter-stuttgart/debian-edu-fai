@@ -1,12 +1,12 @@
 disk_config  disk1  disklabel:gpt-bios bootable:1 fstabkey:uuid
 primary  /boot/efi   512M         vfat    rw
-primary  /boot       512M-2G      ext4    rw
+primary  /boot       1G-3G        ext4    rw
 primary  -           0-           -       -
 
 disk_config lvm
 vg  vg_system  disk1.3
-vg_system-root   /      2G-4G     ext4  errors=remount-ro
+vg_system-root   /      3G-5G     ext4  errors=remount-ro
 vg_system-swap_1 swap   RAM:150%  swap  sw
-vg_system-usr    /usr   28G-36G   ext4  defaults
-vg_system-var    /var   8G-10G    ext4  defaults
+vg_system-usr    /usr   32G-36G   ext4  defaults
+vg_system-var    /var   11G-14G   ext4  defaults
 vg_system-home   /home  4G-70%    ext4  defaults
