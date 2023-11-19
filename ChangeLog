@@ -1,6 +1,12 @@
+2023-11-19 Mike Gabriel
+
+        * release 2023.11.19.1 (HEAD -> master, tag: 2023.11.19.1)
+        * bin/debian-edu-router-fai_updateconfigspace: Fix quoting typo in
+          git command. (bec92b6)
+
 2023-10-03 Mike Gabriel
 
-        * release 2023.10.03.1 (HEAD -> master, tag: 2023.10.03.1)
+        * release 2023.10.03.1 (b0fe4d5) (tag: 2023.10.03.1)
         * fai/config/disk_config: Enlarge system partitions generously, so
           that system installation don't fail because of low-disk
           space. (a04cb5a)

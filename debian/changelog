@@ -1,3 +1,10 @@
+debian-edu-fai (2023.11.19.1) unstable; urgency=medium
+
+  * bin/debian-edu-router-fai_updateconfigspace:
+    - Fix quoting typo in git command.
+
+ -- Mike Gabriel <sunweaver@debian.org>  Sun, 19 Nov 2023 09:51:33 +0100
+
 debian-edu-fai (2023.10.03.1) unstable; urgency=medium
 
   * fai/config/_obsolete-files.d/debian-edu-fai.removed:
