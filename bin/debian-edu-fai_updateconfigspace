@@ -46,7 +46,7 @@ if [ "${FAI_CONFIGDIR_REAL}" = "/usr/share/debian-edu-fai/fai/config" ]; then
 	echo "ERROR: FAI_CONFIGDIR points to '${FAI_CONFIGDIR_REAL}'."
 	echo "ERROR: Such a setup is not supported..."
 	exit 1
-elif command -v git 1>/dev/null && [ "$(git rev-parse --is-inside-work-tree" 2>/dev/null) = "true" ]; then
+elif command -v git 1>/dev/null && [ "$(git rev-parse --is-inside-work-tree 2>/dev/null)" = "true" ]; then
 	# FAI config space is managed by Git, don't do anything then...
 	:
 else
