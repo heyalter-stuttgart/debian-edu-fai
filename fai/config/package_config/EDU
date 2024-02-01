@@ -5,3 +5,4 @@ debian-edu-artwork
 debian-edu-install
 cfengine3
 wget
+systemd-timesyncd
