@@ -1,6 +1,25 @@
+2024-02-01 Mike Gabriel
+
+        * release 2024.02.01.1 (HEAD -> master, tag: 2024.02.01.1)
+        * fai/config/package_config/EDU: Assure installation of
+          systemd-timerd. (44ab6d4)
+
+2024-01-10 Mike Gabriel
+
+        * fai/config/_obsolete-files.d/debian-edu-fai.removed: Add
+          class/90_fai.profile. (7077927)
+        * fai/config/disk_config/LVM_EDU_*_LEGACY: Add BIOS Legacy partition
+          tables again. Some old UEFIs/BIOSes can't handle BIOS
+          legacy on GPT partition tables. (ee77914)
+        * fai/config/disk_config/LVM_EDU*: Drop /dev/vg_system/usr volume.
+          Causes conflicts with usr-merge initiative in Debian.
+          (e47fbed)
+        * fai/config/class/40-parse-profiles.sh: Enlarge menu window width by
+          5 chars. (671a73d)
+
 2023-11-19 Mike Gabriel
 
-        * release 2023.11.19.1 (HEAD -> master, tag: 2023.11.19.1)
+        * release 2023.11.19.1 (4e6310a) (tag: 2023.11.19.1)
         * bin/debian-edu-router-fai_updateconfigspace: Fix quoting typo in
           git command. (bec92b6)
 
