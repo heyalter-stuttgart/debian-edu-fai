@@ -1,3 +1,10 @@
+debian-edu-fai (2024.02.01.2) unstable; urgency=medium
+
+  * fai/config/package_config/EDU:
+    + Fix package name (systemd-timerd -> systemd-timesyncd).
+
+ -- Mike Gabriel <sunweaver@debian.org>  Thu, 01 Feb 2024 16:24:26 +0100
+
 debian-edu-fai (2024.02.01.1) unstable; urgency=medium
 
   * fai/config/class/40-parse-profiles.sh:
